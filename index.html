@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE LIAR: SHADOW VILLAGE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+    <div id="ui-layer">
+        <button id="global-audio-toggle" class="audio-toggle-btn">⚙️ Settings</button>
+        <div class="cinematic-overlay"></div>
+        
+        <!-- Scale Selection Screen -->
+        <div id="scale-screen" class="screen flex-center popup-anim">
+            <div class="modal cinematic-modal">
+                <h1 class="title-font glow-text">THE LIAR</h1>
+                <h2 class="title-font sub-title">C++ MYSTERY: SHADOW VILLAGE</h2>
+                <div class="divider"></div>
+                <p class="desc-text">Before you begin, choose the scope of your investigation.</p>
+                <div class="scale-options">
+                    <button class="scale-btn" data-scale="small">
+                        <span class="scale-icon">🟢</span>
+                        <div class="scale-info"><strong>Small Hamlet</strong><span>4 Houses, 3 Suspects (Quick)</span></div>
+                    </button>
+                    <button class="scale-btn" data-scale="medium">
+                        <span class="scale-icon">🟡</span>
+                        <div class="scale-info"><strong>Quiet Village</strong><span>8 Houses, 7 Suspects (Balanced)</span></div>
+                    </button>
+                    <button class="scale-btn" data-scale="large">
+                        <span class="scale-icon">🔴</span>
+                        <div class="scale-info"><strong>Shadow Town</strong><span>16 Houses, 15 Suspects (Full)</span></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen hidden flex-center popup-anim">
+            <div class="modal cinematic-modal">
+                <h1 class="title-font glow-text text-xl">The Crime Apparent</h1>
+                <div class="divider"></div>
+                <p class="prose">A crime has fractured the village. The master C++ codebase, kept in the heart of the village, was deliberately corrupted overnight.</p>
+                <p class="prose mt-2">One villager is the criminal. Among the residents, some <strong>always lie</strong>, some <strong>always tell the truth</strong>, and the rest remain dangerously <strong>neutral</strong>.</p>
+                <p class="prose mt-2 text-indigo">Interrogate them. Prove your knowledge of C++ to earn their trust and unlock their testimonies. Cross-reference their claims, and find the culprit.</p>
+                
+                <div class="controls-box">
+                    <p><strong>WASD</strong>: Move  |  <strong>Mouse</strong>: Look  |  <strong>E</strong>: Interact  |  <strong>ESC</strong>: Pause / Notebook</p>
+                </div>
+                <button id="start-btn" class="primary-btn">Begin Investigation</button>
+            </div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud" class="screen hidden">
+            <div id="crosshair"></div>
+            <div id="interaction-prompt" class="hidden">PRESS [E] TO INTERACT</div>
+            <canvas id="minimap" width="180" height="180"></canvas>
+            <div id="evidence-hud">
+                <span class="evidence-label">EVIDENCE</span>
+                <span id="evidence-display" class="evidence-val">0</span>
+            </div>
+            <div id="notebook-hint">TAB / ESC - NOTEBOOK</div>
+        </div>
+
+        <!-- Dialogue UI -->
+        <div id="dialogue-screen" class="screen hidden flex-center fade-in">
+            <div class="modal large cinematic-modal">
+                <div class="dialogue-header">
+                    <h2 id="npc-name" class="title-font">NPC Name</h2>
+                    <h3 id="npc-role">NPC Role</h3>
+                </div>
+                
+                <div class="dialogue-box">
+                    <p id="npc-dialogue" class="italic dialogue-text">"..."</p>
+                </div>
+                
+                <div id="question-container" class="hidden quiz-box">
+                    <h4 id="question-topic" class="topic mono-font"></h4>
+                    <p id="question-text" class="font-bold mb-4"></p>
+                    <div id="question-options"></div>
+                    <button id="buy-hint-btn" class="hint-btn">Buy Direct Hint (-20 PTS)</button>
+                </div>
+
+                <div id="feedback-container" class="hidden feedback-box">
+                    <p id="feedback-text"></p>
+                    <div id="feedback-explanation" class="italic mt-2 mb-4 text-slate-300"></div>
+                    <button id="next-btn" class="primary-btn hidden">Continue</button>
+                </div>
+                
+                <div id="hint-container" class="hidden">
+                    <h4 class="topic mono-font text-green">Testimony Retrieved:</h4>
+                    <div class="dialogue-box glow-box">
+                        <p id="hint-text" class="italic font-bold">"..."</p>
+                    </div>
+                </div>
+
+                <button id="leave-btn" class="secondary-btn mt-4">Step Back</button>
+            </div>
+        </div>
+
+        <!-- Notebook Screen -->
+        <div id="notebook-screen" class="screen hidden flex-center fade-in">
+            <div class="modal large cinematic-modal notebook-modal">
+                <h2 class="title-font glow-text">Investigation Log</h2>
+                <div class="divider"></div>
+                <div class="flex-between">
+                    <p class="topic mono-font text-yellow">Lie Detector Scan: 15 PTS</p>
+                    <p class="topic mono-font text-indigo">Current Points: <span id="notebook-pts">0</span></p>
+                </div>
+                <div id="notebook-grid"></div>
+                <div class="actions" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button id="kb-btn" class="secondary-btn">Knowledge Base</button>
+                    <button id="resume-btn" class="secondary-btn">Close Ledger</button>
+                    <button id="accuse-btn" class="danger-btn">Issue Warrant</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Knowledge Base Screen -->
+        <div id="kb-screen" class="screen hidden flex-center fade-in">
+            <div class="modal large cinematic-modal kb-modal" style="max-height: 80vh; overflow-y: auto;">
+                <h2 class="title-font glow-text text-indigo">C++ Knowledge Base</h2>
+                <div class="divider"></div>
+                <div class="prose text-left" style="font-size: 0.9rem; margin-bottom: 20px;">
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 1: Fundamentals</h3>
+                    <p><strong>Variables & Types:</strong> <code>int</code>, <code>float</code>, <code>double</code>, <code>char</code>, <code>bool</code>. Store data in memory.</p>
+                    <p><strong>Operators:</strong> Arithmetic (+, -, *, /, %), Relational (==, !=, &lt;, &gt;), Logical (&amp;&amp;, ||, !), Bitwise (&amp;, |, ^, ~).</p>
+                    <p><strong>I/O:</strong> <code>std::cin &gt;&gt;</code> for input, <code>std::cout &lt;&lt;</code> for output.</p>
+                    
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 2: Control Flow</h3>
+                    <p><strong>Conditions:</strong> <code>if</code>, <code>else if</code>, <code>else</code> for branching logic. <code>switch</code> for discrete value checks.</p>
+                    <p><strong>Nested:</strong> Placing <code>if</code> inside <code>if</code> for complex multi-tier checks.</p>
+
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 3: Loops & Jumps</h3>
+                    <p><strong>Loops:</strong> <code>for</code> (count-controlled), <code>while</code> (condition-controlled preprocessing), <code>do-while</code> (postprocessing, runs at least once).</p>
+                    <p><strong>Jump Statements:</strong> <code>break</code> exits loop/switch. <code>continue</code> skips rest of current loop iteration.</p>
+
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 4: Functions</h3>
+                    <p><strong>Functions:</strong> Reusable blocks of code. Have return type, name, and parameters. e.g. <code>int add(int a, int b)</code>.</p>
+                    <p><strong>Recursion:</strong> A function calling itself to solve smaller sub-problems. Needs a base case to avoid infinite loop.</p>
+
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 5: Data Structures</h3>
+                    <p><strong>Arrays:</strong> Fixed-size sequential memory holding elements of same type. Indexing starts at 0.</p>
+                    <p><strong>Strings:</strong> <code>std::string</code> represents text. Can be concatenated with <code>+</code>. Accessed like arrays of chars.</p>
+                </div>
+                <button id="close-kb-btn" class="secondary-btn">Return to Ledger</button>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="screen hidden flex-center fade-in">
+            <div class="modal cinematic-modal kb-modal">
+                <h2 class="title-font glow-text text-indigo">Audio Settings</h2>
+                <div class="divider"></div>
+                <div style="display: flex; flex-direction: column; gap: 15px; margin: 20px 0; text-align: left;">
+                    <label style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;">
+                        <span>Music</span>
+                        <input type="checkbox" id="toggle-music" checked>
+                    </label>
+                    <label style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;">
+                        <span>Ambience</span>
+                        <input type="checkbox" id="toggle-ambience" checked>
+                    </label>
+                    <label style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;">
+                        <span>SFX</span>
+                        <input type="checkbox" id="toggle-sfx" checked>
+                    </label>
+                </div>
+                <button id="close-settings-btn" class="secondary-btn">Close Settings</button>
+            </div>
+        </div>
+
+        <!-- Accusation Screen -->
+        <div id="accusation-screen" class="screen hidden flex-center fade-in">
+            <div class="modal large cinematic-modal">
+                <h2 class="title-font glow-text text-red">Final Judgment</h2>
+                <p class="prose mb-4">This action is irreversible. Ensure your deductions are flawless. Select the entity responsible for the corruption.</p>
+                <div id="suspects-grid"></div>
+                <button id="cancel-accuse-btn" class="secondary-btn mt-4">Retract Accusation</button>
+            </div>
+        </div>
+
+        <!-- End Screen -->
+        <div id="end-screen" class="screen hidden flex-center popup-anim">
+            <div class="modal cinematic-modal">
+                <h1 id="end-title" class="title-font">Game Over</h1>
+                <div class="divider"></div>
+                <p id="end-desc" class="prose my-4"></p>
+                <button id="restart-btn" class="primary-btn">Restart Simulation</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/script.js"></script>
+</body>
+</html>
