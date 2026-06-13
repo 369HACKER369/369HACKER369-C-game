@@ -12,8 +12,41 @@
         <button id="global-audio-toggle" class="audio-toggle-btn">⚙️ Settings</button>
         <div class="cinematic-overlay"></div>
         
+        <!-- Game Stylized Text Overlay -->
+        <div id="game-overlays">
+            <div class="ad-footer">
+                <p>Contact Us For Advertisement</p>
+            </div>
+        </div>
+
+        <!-- Game Tooltip overlay -->
+        <div id="game-tooltip" class="tooltip-overlay hidden">
+            <h3 id="tooltip-title">Area Discovered</h3>
+            <p id="tooltip-text">...</p>
+        </div>
+        
+        <!-- Player Emote UI -->
+        <div id="player-emote" class="emote-overlay hidden">
+            <span id="emote-icon">👋</span>
+            <span id="emote-text">* Waving *</span>
+        </div>
+        
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen flex-center popup-anim" style="z-index: 1000; background: rgba(15, 23, 42, 0.95);">
+            <div class="modal cinematic-modal" style="text-align: center; max-width: 600px;">
+                <h1 class="creator-title glow-text" style="font-size: 2.5rem; margin-bottom: 0.5rem; color: #facc15;">CREATED BY ZEESHAN KHAN</h1>
+                <h2 class="game-subtitle" style="font-size: 1.5rem; color: #818cf8; letter-spacing: 4px; margin-bottom: 2rem;">HIS FIRST GAME</h2>
+                <div class="divider"></div>
+                <p class="creator-bio" style="font-size: 1.1rem; line-height: 1.8; color: #cbd5e1; margin-bottom: 2rem;">
+                    He loves discovering new things and building tools, websites,<br/>
+                    and creative projects.
+                </p>
+                <button id="welcome-continue-btn" class="primary-btn">Acknowledge</button>
+            </div>
+        </div>
+
         <!-- Scale Selection Screen -->
-        <div id="scale-screen" class="screen flex-center popup-anim">
+        <div id="scale-screen" class="screen hidden flex-center popup-anim">
             <div class="modal cinematic-modal">
                 <h1 class="title-font glow-text">THE LIAR</h1>
                 <h2 class="title-font sub-title">C++ MYSTERY: SHADOW VILLAGE</h2>
@@ -67,9 +100,42 @@
         <!-- Dialogue UI -->
         <div id="dialogue-screen" class="screen hidden flex-center fade-in">
             <div class="modal large cinematic-modal">
-                <div class="dialogue-header">
-                    <h2 id="npc-name" class="title-font">NPC Name</h2>
-                    <h3 id="npc-role">NPC Role</h3>
+                <div class="dialogue-header" style="display: flex; gap: 1rem; align-items: center;">
+                    <div id="npc-portrait">
+                        <svg id="npc-portrait-svg" viewBox="0 0 100 100" style="width: 60px; height: 60px;">
+                            <circle cx="50" cy="50" r="50" id="npc-portrait-bg" fill="#333"/>
+                            
+                            <g id="expr-neutral">
+                                <circle cx="35" cy="45" r="6" fill="#fff"/>
+                                <circle cx="65" cy="45" r="6" fill="#fff"/>
+                                <rect x="38" y="65" width="24" height="4" rx="2" fill="#fff"/>
+                            </g>
+                            
+                            <g id="expr-suspicious" class="hidden">
+                                <!-- Half-open eye left -->
+                                <path d="M 28 40 L 42 45 L 28 45 Z" fill="#fff"/>
+                                <circle cx="65" cy="45" r="5" fill="#fff"/>
+                                <!-- Angled mouth -->
+                                <path d="M 40 68 Q 50 64 60 62" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                            </g>
+                            
+                            <g id="expr-surprised" class="hidden">
+                                <circle cx="35" cy="45" r="8" fill="#fff"/>
+                                <circle cx="65" cy="45" r="8" fill="#fff"/>
+                                <ellipse cx="50" cy="70" rx="8" ry="12" fill="#fff"/>
+                            </g>
+                            
+                            <g id="expr-happy" class="hidden">
+                                <path d="M 30 45 Q 35 38 40 45" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                <path d="M 60 45 Q 65 38 70 45" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                <path d="M 35 60 Q 50 78 65 60" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="npc-name" class="title-font">NPC Name</h2>
+                        <h3 id="npc-role">NPC Role</h3>
+                    </div>
                 </div>
                 
                 <div class="dialogue-box">
@@ -124,26 +190,28 @@
                 <h2 class="title-font glow-text text-indigo">C++ Knowledge Base</h2>
                 <div class="divider"></div>
                 <div class="prose text-left" style="font-size: 0.9rem; margin-bottom: 20px;">
-                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 1: Fundamentals</h3>
-                    <p><strong>Variables & Types:</strong> <code>int</code>, <code>float</code>, <code>double</code>, <code>char</code>, <code>bool</code>. Store data in memory.</p>
-                    <p><strong>Operators:</strong> Arithmetic (+, -, *, /, %), Relational (==, !=, &lt;, &gt;), Logical (&amp;&amp;, ||, !), Bitwise (&amp;, |, ^, ~).</p>
-                    <p><strong>I/O:</strong> <code>std::cin &gt;&gt;</code> for input, <code>std::cout &lt;&lt;</code> for output.</p>
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit #1: Basic Building Blocks of a Computer Program</h3>
+                    <p><strong>Von-Neumann Architecture:</strong> Shared memory structure for program instructions and data. Controlled by CPU containing ALU, Control Unit, and Registers.</p>
+                    <p><strong>Constants & Variables:</strong> Identifiers pointing to memory locations. Use <code>const</code> for immutable values. Variable names must start with a letter or underscore, not numbers.</p>
+                    <p><strong>Data Types:</strong> <code>int</code> (integer), <code>float</code> / <code>double</code> (single/double precision floating-point), <code>char</code> (character), <code>bool</code> (boolean).</p>
+                    <p><strong>Operators & Expressions:</strong> Arithmetic (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>), Comparison (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>), and Logical (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>).</p>
+                    <p><strong>Inputs/Outputs:</strong> <code>std::cin &gt;&gt;</code> captures console inputs; <code>std::cout &lt;&lt;</code> sends outputs to the standard stream console.</p>
+                    <p><strong>Debugging & Errors:</strong> <em>Syntax errors</em> violate compiler grammatical rules; <em>Logical errors</em> represent correct grammar but incorrect reasoning, causing unexpected runtime outputs.</p>
                     
-                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 2: Control Flow</h3>
-                    <p><strong>Conditions:</strong> <code>if</code>, <code>else if</code>, <code>else</code> for branching logic. <code>switch</code> for discrete value checks.</p>
-                    <p><strong>Nested:</strong> Placing <code>if</code> inside <code>if</code> for complex multi-tier checks.</p>
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit #2: Decision Structures</h3>
+                    <p><strong>Execution Flow:</strong> Standard C++ executes sequentially unless a branching decision modifies control flow based on boolean expressions.</p>
+                    <p><strong>Single Selection (if):</strong> Evaluates a body of statements ONLY if the expression evaluates to non-zero/true.</p>
+                    <p><strong>Double Selection (if/else):</strong> Branches to the <code>if</code> path if the condition holds true, or the <code>else</code> path if it evaluates to false.</p>
+                    <p><strong>Multiple Selection (switch):</strong> Matches a discrete integer/character expression onto multiple label <code>case</code> branches. Execution falls through automatically unless interrupted by a <code>break</code>.</p>
+                    <p><strong>Conditional Operator (?:):</strong> Ternary syntax compacts selection choices: <code>condition ? expression_if_true : expression_if_false;</code>.</p>
+                    <p><strong>Nested Decisions:</strong> Positioning decision structures within other decisions allows evaluation of hierarchically dependent criteria.</p>
 
-                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 3: Loops & Jumps</h3>
-                    <p><strong>Loops:</strong> <code>for</code> (count-controlled), <code>while</code> (condition-controlled preprocessing), <code>do-while</code> (postprocessing, runs at least once).</p>
-                    <p><strong>Jump Statements:</strong> <code>break</code> exits loop/switch. <code>continue</code> skips rest of current loop iteration.</p>
-
-                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 4: Functions</h3>
-                    <p><strong>Functions:</strong> Reusable blocks of code. Have return type, name, and parameters. e.g. <code>int add(int a, int b)</code>.</p>
-                    <p><strong>Recursion:</strong> A function calling itself to solve smaller sub-problems. Needs a base case to avoid infinite loop.</p>
-
-                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit 5: Data Structures</h3>
-                    <p><strong>Arrays:</strong> Fixed-size sequential memory holding elements of same type. Indexing starts at 0.</p>
-                    <p><strong>Strings:</strong> <code>std::string</code> represents text. Can be concatenated with <code>+</code>. Accessed like arrays of chars.</p>
+                    <h3 class="mono-font text-yellow mb-2 mt-4">Unit #3: Loops</h3>
+                    <p><strong>Repetitive Statements:</strong> Enables executing statement blocks repeatedly until designated conditional criteria alter.</p>
+                    <p><strong>Counter Loops (for):</strong> Used when iterations can be predetermined. Syntax: <code>for(initialization; condition; increment/decrement)</code>.</p>
+                    <p><strong>Conditional Pre-Test Loops (while):</strong> Checks condition initially. If true, iterates body; if false on onset, executes 0 times.</p>
+                    <p><strong>Conditional Post-Test Loops (do/while):</strong> Executes body once first, then checks condition. Guaranteed to run at least 1 time.</p>
+                    <p><strong>Loop Control & Nesting:</strong> <code>break</code> terminates and exits the nearest loop; <code>continue</code> skips remaining statements in current iteration, advancing to next check. Nesting runs inner loops fully for every single iteration of the outer loops.</p>
                 </div>
                 <button id="close-kb-btn" class="secondary-btn">Return to Ledger</button>
             </div>
@@ -166,6 +234,16 @@
                     <label style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace;">
                         <span>SFX</span>
                         <input type="checkbox" id="toggle-sfx" checked>
+                    </label>
+                    <div class="divider" style="margin: 5px 0;"></div>
+                    <label style="display: flex; justify-content: space-between; align-items: center; font-family: 'JetBrains Mono', monospace;">
+                        <span>Weather</span>
+                        <select id="weather-select" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 4px 8px; border-radius: 4px;">
+                            <option value="auto">Dynamic (Auto)</option>
+                            <option value="clear">Clear</option>
+                            <option value="rainy">Rainy</option>
+                            <option value="snowy">Snowy</option>
+                        </select>
                     </label>
                 </div>
                 <button id="close-settings-btn" class="secondary-btn">Close Settings</button>

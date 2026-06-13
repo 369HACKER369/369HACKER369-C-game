@@ -1,41 +1,41 @@
 import { NPC, GameState, TruthStatus } from './types';
 
 export const ALL_NPCS: NPC[] = [
-  { id: 'ada', name: 'Ada', role: 'Farmer', gender: 'Female', topic: 'Unit 1: Basics', personality: 'Observant', 
+  { id: 'ada', name: 'Ada', role: 'Farmer', gender: 'Female', topic: 'Unit #1: Variables & Constants', personality: 'Observant', 
     introDialogue: 'Howdy! I was just tending to my crops. Need some help?',
-    question: { text: 'Which is NOT a valid C++ variable name?', options: ['_myVar', '2ndVar', 'var2', 'my_var'], correctIndex: 1, explanation: 'Variables cannot start with a digit.' } },
+    question: { text: 'Which is NOT a valid C++ variable name?', options: ['_myVar', '2ndVar', 'var2', 'my_var'], correctIndex: 1, explanation: 'Variables cannot start with a digit in C++.' } },
   
-  { id: 'bran', name: 'Bran', role: 'Teacher', gender: 'Male', topic: 'Unit 2: Decisions', personality: 'Analytical', 
+  { id: 'bran', name: 'Bran', role: 'Teacher', gender: 'Male', topic: 'Unit #2: Decisions (if/else)', personality: 'Analytical', 
     introDialogue: 'Ah, a detective. I teach logic and decision-making. Perhaps I can test yours?',
-    question: { text: 'if (5 > 3) if (false) cout << "A"; else cout << "B"; Output?', options: ['A', 'B', 'Nothing', 'Error'], correctIndex: 1, explanation: 'The else is associated with the closest if (the false one).' } },
+    question: { text: 'If we compile: if (5 > 3) if (false) cout << "A"; else cout << "B"; what is the output?', options: ['A', 'B', 'Nothing', 'Compilation Error'], correctIndex: 1, explanation: 'The else is associated with the closest preceding if structural body (the false one).' } },
 
-  { id: 'celia', name: 'Celia', role: 'Guard', gender: 'Female', topic: 'Unit 3: Loops', personality: 'Vigilant', 
+  { id: 'celia', name: 'Celia', role: 'Guard', gender: 'Female', topic: 'Unit #3: Loops (do-while)', personality: 'Vigilant', 
     introDialogue: 'Stand back! The crime scene is off-limits. Unless... you can prove you know your loops.',
-    question: { text: 'Which loop is guaranteed to execute at least once?', options: ['for loop', 'while loop', 'do-while loop', 'infinite loop'], correctIndex: 2, explanation: 'do-while evaluates its condition AFTER the body executes.' } },
+    question: { text: 'Which loop is guaranteed to execute at least once because its condition is evaluated at the end?', options: ['for loop', 'while loop', 'do-while loop', 'infinite loop'], correctIndex: 2, explanation: 'do-while evaluates its condition AFTER the body executes.' } },
 
-  { id: 'dax', name: 'Dax', role: 'Scientist', gender: 'Male', topic: 'Unit 4: Functions', personality: 'Eccentric', 
-    introDialogue: 'Fascinating! The crime perfectly outlines a recursive pattern. Oh, wait, you need evidence?',
-    question: { text: 'When a function calls itself, it is known as:', options: ['Iteration', 'Encapsulation', 'Recursion', 'Overloading'], correctIndex: 2, explanation: 'Recursion is the technique of a function calling itself.' } },
+  { id: 'dax', name: 'Dax', role: 'Scientist', gender: 'Male', topic: 'Unit #1: Von-Neumann Architecture', personality: 'Eccentric', 
+    introDialogue: 'Fascinating! The crime perfectly patterns computer structure. Oh, wait, you need evidence?',
+    question: { text: 'In the Von-Neumann architecture, which component of the CPU is responsible for executing arithmetic and logical comparisons?', options: ['Control Unit', 'Arithmetic Logic Unit (ALU)', 'Accumulator', 'Main Memory'], correctIndex: 1, explanation: 'The ALU executes all arithmetic operations and relational/logical comparisons.' } },
 
-  { id: 'enid', name: 'Enid', role: 'Merchant', gender: 'Female', topic: 'Unit 5: Arrays & Strings', personality: 'Shrewd', 
+  { id: 'enid', name: 'Enid', role: 'Merchant', gender: 'Female', topic: 'Unit #2: Multiple Selection (switch)', personality: 'Shrewd', 
     introDialogue: 'I trade in rare items and strings of data. Answer my question, and I will trade you a hint.',
-    question: { text: 'What is the index of the last element in an array of size N?', options: ['N', 'N - 1', '1', '0'], correctIndex: 1, explanation: 'Arrays are 0-indexed, so the last valid index is N-1.' } },
+    question: { text: 'Which C++ keyword is used to stop execution fall-through within a matching switch case structure?', options: ['exit', 'return', 'break', 'continue'], correctIndex: 2, explanation: 'The break keyword terminates and exits the switch select block.' } },
 
-  { id: 'finn', name: 'Finn', role: 'Blacksmith', gender: 'Male', topic: 'Unit 6: Pointers', personality: 'Gruff', 
-    introDialogue: 'Hmph. I forge strong tools and direct memory references. What do you want?',
-    question: { text: 'What operator is used to get the memory address of a variable?', options: ['*', '&', '->', '::'], correctIndex: 1, explanation: "The address-of operator & fetches a variable's memory location." } },
+  { id: 'finn', name: 'Finn', role: 'Blacksmith', gender: 'Male', topic: 'Unit #1: Operators & Expressions', personality: 'Gruff', 
+    introDialogue: 'Hmph. I forge strong tools and direct logical operations. What do you want?',
+    question: { text: 'What is the boolean evaluation result of the C++ expression static_cast<bool>(10 % 3)?', options: ['true', 'false', '0', 'Error'], correctIndex: 0, explanation: '10 % 3 equals 1. Any non-zero integer cast/converted to bool evaluates to true.' } },
 
-  { id: 'gemma', name: 'Gemma', role: 'Mayor', gender: 'Female', topic: 'Unit 7: Structures', personality: 'Authoritative', 
-    introDialogue: 'This crime is a tragedy for our organized village. We must restore order and structure!',
-    question: { text: 'How do you access member `age` of structure variable `person`?', options: ['person->age', 'person:age', 'person[age]', 'person.age'], correctIndex: 3, explanation: 'The dot (.) operator accesses structure members.' } },
+  { id: 'gemma', name: 'Gemma', role: 'Mayor', gender: 'Female', topic: 'Unit #2: Dual Branching', personality: 'Authoritative', 
+    introDialogue: 'This crime is a tragedy for our organized village. We must restore order and structures!',
+    question: { text: 'Which of the following structures enables choosing exactly one of two alternative courses of action?', options: ['Single Selection (if)', 'Double Selection (if/else)', 'Multiple selection (switch)', 'Counter Loop (for)'], correctIndex: 1, explanation: 'Double selection (if/else) models a binary choice path.' } },
 
-  { id: 'hugo', name: 'Hugo', role: 'Doctor', gender: 'Male', topic: 'Unit 8: Inputs/Outputs', personality: 'Calm', 
+  { id: 'hugo', name: 'Hugo', role: 'Doctor', gender: 'Male', topic: 'Unit #1: Program Errors', personality: 'Calm', 
     introDialogue: 'Breathe deeply. I just output formatted health advice, but I noticed something unusual today.',
-    question: { text: 'Which standard function is used for formatted output in C?', options: ['cin', 'cout', 'printf', 'scanf'], correctIndex: 2, explanation: 'printf is the standard formatted output function in C.' } },
+    question: { text: 'Which type of error compiles successfully but produces incorrect results at runtime?', options: ['Syntax Error', 'Linker Error', 'Logical Error', 'Preprocessing Error'], correctIndex: 2, explanation: 'Logical errors do not violate grammatical rules and compile correctly but perform incorrect logic.' } },
 
-  { id: 'iris', name: 'Iris', role: 'Chef', gender: 'Female', topic: 'Unit 9: File Handling', personality: 'Busy', 
+  { id: 'iris', name: 'Iris', role: 'Chef', gender: 'Female', topic: 'Unit #3: Loop Control (break/continue)', personality: 'Busy', 
     introDialogue: "I'm trying to read my recipe file, but it's corrupted! Maybe the criminal did it?",
-    question: { text: 'Which C library function is used to open a file?', options: ['open()', 'read()', 'fopen()', 'file_open()'], correctIndex: 2, explanation: 'fopen() is used to open text or binary files in C.' } }
+    question: { text: 'Inside a loop block, which statement skips the remaining body actions of the current iteration and jumps directly to the next conditional evaluation count?', options: ['break', 'return', 'continue', 'goto'], correctIndex: 2, explanation: 'The continue statement skips the rest of the loop body, advancing directly to the next iteration evaluation.' } }
 ];
 
 export function generateHints(criminalId: string, truthStatuses: Record<string, TruthStatus>): Record<string, string> {

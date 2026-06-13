@@ -8,51 +8,51 @@ import { CSM } from 'three/examples/jsm/csm/CSM.js';
 // ==========================================
 const noise2D = createNoise2D();
 const ALL_NPCS_DATA = [
-    { id: 'n1', name: 'Alaric', role: 'Farmer', gender: 'Male', color: 0x8b5a2b, size: [1, 1.05, 1], topic: 'Variables',
-      dialogue: 'The soil is rich tonight, but something darker is taking root. I was counting my seeds earlier...',
-      question: { text: 'To store the exact number of seeds (e.g. 50), which C++ variable type is most appropriate and memory efficient?', options: ['double', 'int', 'bool', 'char'], correct: 1, explanation: 'An integer (int) is used for whole numbers.' } },
-    { id: 'n2', name: 'Elara', role: 'Blacksmith', gender: 'Female', color: 0x4a4a4a, size: [1.1, 0.95, 1.1], topic: 'Data Types',
-      dialogue: 'I hammer iron, not lies. But someone has been tampering with my forge temperatures.',
-      question: { text: 'If I need to store a very precise temperature like 1204.567f, which type is best?', options: ['int', 'float', 'long', 'char'], correct: 1, explanation: 'Float is used for single-precision floating-point numbers.' } },
-    { id: 'n3', name: 'Silas', role: 'Merchant', gender: 'Male', color: 0x800080, size: [0.95, 1, 0.95], topic: 'Operators',
-      dialogue: 'Coin doesn\'t lie, but people do. A transaction was altered in the ledger!',
-      question: { text: 'What is the result of 15 % 4 in my ledger?', options: ['3', '4', '3.75', '15'], correct: 0, explanation: 'The modulo operator % returns the remainder of division. 15 / 4 is 3 with remainder 3.' } },
-    { id: 'n4', name: 'Vael', role: 'Guard', gender: 'Female', color: 0xb22222, size: [1.05, 1.1, 1], topic: 'Conditions',
-      dialogue: 'None shall pass... unless they possess the right credentials. An authorized entry was recorded at the murder time.',
-      question: { text: 'Which operator evaluates to true ONLY if BOTH conditions are true?', options: ['||', '!=', '==', '&&'], correct: 3, explanation: 'The logical AND operator (&&) requires both conditions to be true.' } },
-    { id: 'n5', name: 'Thorne', role: 'Doctor', gender: 'Male', color: 0x008080, size: [0.95, 1.05, 0.95], topic: 'Loops',
-      dialogue: 'I administer doses until the plague subsides. Someone changed my recurrence formula.',
-      question: { text: 'If I use a `while(true)` loop for administering doses without a `break`, what happens?', options: ['Syntax Error', 'Infinite Loop', 'Loop runs once', 'Loop exits immediately'], correct: 1, explanation: 'A while(true) loop will run forever unless explicitly broken.' } },
-    { id: 'n6', name: 'Lyra', role: 'Teacher', gender: 'Female', color: 0x4682b4, size: [0.9, 0.95, 0.9], topic: 'Functions',
-      dialogue: 'Knowledge is power. The killer used an unmarked function to hide their tracks!',
-      question: { text: 'What keyword defines a function that returns NO value?', options: ['null', 'void', 'empty', 'return'], correct: 1, explanation: 'The `void` keyword specifies that a function does not return a value.' } },
-    { id: 'n7', name: 'Gael', role: 'Baker', gender: 'Male', color: 0xd2b48c, size: [1.1, 1, 1.1], topic: 'Arrays',
-      dialogue: 'I line up my loaves in a neat array. One loaf is missing from the batch!',
-      question: { text: 'If an array `int loaves[5]` is created, what is the index of the LAST element?', options: ['5', '4', '1', '0'], correct: 1, explanation: 'Arrays in C++ are 0-indexed. A size 5 array has indices 0 through 4.' } },
-    { id: 'n8', name: 'Rowena', role: 'Librarian', gender: 'Female', color: 0x228b22, size: [1, 1, 1], topic: 'Strings',
-      dialogue: 'A torn parchment. A sequence of characters... Null terminated, like the victim.',
-      question: { text: 'In C++, how do you find the length of a `std::string str`?', options: ['length(str)', 'str.size()', 'str.length', 'sizeOf(str)'], correct: 1, explanation: '`str.size()` or `str.length()` (as a method) returns the length of a string object.' } },
-    { id: 'n9', name: 'Kael', role: 'Miner', gender: 'Male', color: 0x708090, size: [1.05, 0.95, 1.05], topic: 'Pointers',
-      dialogue: 'I dig deep. To the very memory addresses of the earth. I found a hidden pointer...',
-      question: { text: 'What does the dereference operator `*` do when applied to a pointer variable `p`?', options: ['Gets the address of p', 'Gets the value stored at the address pointed to by p', 'Multiplies p', 'Deletes p'], correct: 1, explanation: 'The `*` operator accesses the value at the memory address the pointer holds.' } },
-    { id: 'n10', name: 'Mira', role: 'Mayor', gender: 'Female', color: 0xffd700, size: [1, 1.05, 1], topic: 'Structures',
-      dialogue: 'Our village records are complex entities. Someone modified a struct member!',
-      question: { text: 'If `struct Citizen { int id; };` is configured, and you have a pointer `Citizen* c`, how do you access `id`?', options: ['c.id', 'c->id', 'c::id', '*c.id'], correct: 1, explanation: 'The arrow operator `->` is used to access members through a pointer to a struct.' } },
-    { id: 'n11', name: 'Jorik', role: 'Scribe', gender: 'Male', color: 0x8a2be2, size: [0.95, 1, 0.95], topic: 'File I/O',
-      dialogue: 'The archives were violently accessed. The perpetrator forced an unformatted write operation.',
-      question: { text: 'Which standard stream is typically used to output error messages in C++?', options: ['cin', 'cout', 'cerr', 'cfile'], correct: 2, explanation: '`cerr` is the standard unbuffered error stream.' } },
-    { id: 'n12', name: 'Elys', role: 'Scientist', gender: 'Female', color: 0x00ced1, size: [0.95, 1.05, 0.95], topic: 'Recursion',
-      dialogue: 'A loop within a loop? No, a reflection reflecting itself until memory collapses.',
-      question: { text: 'What is a critical requirement for a recursive function to prevent a stack overflow crash?', options: ['A return type of int', 'A loop construct', 'A base case to stop recursion', 'A pointer parameter'], correct: 2, explanation: 'A base case is logically necessary to stop recursion and begin returning.' } },
-    { id: 'n13', name: 'Doran', role: 'Gravedigger', gender: 'Male', color: 0x2f4f4f, size: [1.1, 1.1, 1.1], topic: 'Memory',
-      dialogue: 'I allocate plots dynamically. But someone forgot to free their memory, leaving a phantom trace.',
-      question: { text: 'In C++, how do you deallocate an array created dynamically with `int* arr = new int[10];`?', options: ['delete arr;', 'free(arr);', 'delete[] arr;', 'remove arr;'], correct: 2, explanation: 'The `delete[]` operator is required to deallocate dynamically allocated arrays.' } },
-    { id: 'n14', name: 'Sybil', role: 'Architect', gender: 'Female', color: 0xda70d6, size: [1, 1.05, 1], topic: 'OOP',
-      dialogue: 'The blueprints of this village are encapsulated. A rogue agent broke the access modifiers.',
-      question: { text: 'Which access modifier allows members to be accessible only within the class itself?', options: ['public', 'private', 'protected', 'internal'], correct: 1, explanation: '`private` members are only accessible from within the class defining them.' } },
-    { id: 'n15', name: 'Orin', role: 'Clockmaker', gender: 'Male', color: 0xb8860b, size: [0.95, 0.95, 0.95], topic: 'Bitwise',
-      dialogue: 'Tick, tock. The gears align at the bit level. The killer utilized a bitwise mask to alter the lock.',
-      question: { text: 'What does the bitwise XOR operator `^` do?', options: ['Sets bit to 1 if both are 1', 'Sets bit to 1 if either is 1', 'Sets bit to 1 if bits are different', 'Inverts all bits'], correct: 2, explanation: 'XOR outputs 1 only when the corresponding bits in the operands strictly differ.' } }
+    { id: 'n1', name: 'Alaric', role: 'Farmer', gender: 'Male', color: 0x8b5a2b, size: [1, 1.05, 1], topic: 'Unit #1: Program Structure & Von-Neumann',
+      dialogue: 'A compiler works in logical blocks, much like planning a harvest. But some parts of our system structure were altered...',
+      question: { text: 'Which of the following describes the correct basic structure of a C++ program and standard execution entry point?', options: ['void main()', 'int main() returning an integer (usually 0) to signal success', 'start() with standard entry markers', '#include <iostream> inside the main body'], correct: 1, explanation: 'Standard C++ requires `int main()` as the entry point, returning 0 to indicate successful execution.' } },
+    { id: 'n2', name: 'Elara', role: 'Blacksmith', gender: 'Female', color: 0x4a4a4a, size: [1.1, 0.95, 1.1], topic: 'Unit #1: Data Types & Memory',
+      dialogue: 'I need to know the exact sizes of my ores, and the exact precision of temp gauges. A tiny overflow and the forge explodes!',
+      question: { text: 'In C++, which data type is typically used to store a single character, and which one is used for floating-point calculations with double precision?', options: ['string and float', 'char and double', 'int and bool', 'wchar_t and float'], correct: 1, explanation: '`char` stores a single character, while `double` has double precision (64-bit IEEE 754) for floats.' } },
+    { id: 'n3', name: 'Silas', role: 'Merchant', gender: 'Male', color: 0x800080, size: [0.95, 1, 0.95], topic: 'Unit #1: Constants & Variables',
+      dialogue: 'Prices fluctuate, but tax rates? They are immutable. Unless a thief breaks into the ledger and changes them...',
+      question: { text: 'Which of the following successfully declares an unmodifiable decimal constant named `TAX_RATE` in C++?', options: ['constant float TAX_RATE = 0.05;', 'const double TAX_RATE = 0.05;', 'immutable TAX_RATE = 0.05;', '#define constant TAX_RATE 0.05'], correct: 1, explanation: 'The `const` keyword in C++ declares a read-only variable whose value cannot be altered.' } },
+    { id: 'n4', name: 'Vael', role: 'Guard', gender: 'Female', color: 0xb22222, size: [1.05, 1.1, 1], topic: 'Unit #1: Operators & Expressions',
+      dialogue: 'To grant gate access, my logical check must be infallible. Combining conditions requires absolute precision.',
+      question: { text: 'What are the values of variables `x` and `y` after this expression executes: `int x = 5; int y = x++;`?', options: ['x is 6, y is 6', 'x is 5, y is 5', 'x is 6, y is 5', 'x is 5, y is 6'], correct: 2, explanation: 'The post-increment operator (`x++`) assigns the current value of `x` (5) to `y`, then increments `x` to 6.' } },
+    { id: 'n5', name: 'Thorne', role: 'Doctor', gender: 'Male', color: 0x008080, size: [0.95, 1.05, 0.95], topic: 'Unit #1: Syntax & Logical Errors',
+      dialogue: 'A syntax error halts compilation immediately, but a logical error? It operates in secret, like a silent plague...',
+      question: { text: 'Which statement correctly distinguishes between a compilation (syntax) error and a logical error?', options: ['Syntax errors cause the program to crash at runtime; logical errors prevent compilation.', 'Syntax errors violate language grammar and prevent compilation; logical errors compile but yield incorrect behavior.', 'Both prevent compilation, but logical errors only happen during input/output operations.', 'There is no difference; they both refer to runtime exceptions.'], correct: 1, explanation: 'Syntax or compilation errors violate grammar (e.g., missing semicolons). Logical errors produce incorrect output with valid code.' } },
+    { id: 'n6', name: 'Lyra', role: 'Teacher', gender: 'Female', color: 0x4682b4, size: [0.9, 0.95, 0.9], topic: 'Unit #2: Decision Structures (if/else)',
+      dialogue: 'Every choice has a path. If the conditions are met, we learn. If not, we fail. The crime scene showed a bifurcated trail.',
+      question: { text: 'Consider this block: `int score = 75; if (score > 80) cout << "A"; else if (score > 70) cout << "B"; else cout << "C";`. What is printed?', options: ['A', 'B', 'C', 'B and C'], correct: 1, explanation: 'Since 75 is not > 80, the first condition is false. Since 75 is > 70, the block prints "B" and bypasses the rest.' } },
+    { id: 'n7', name: 'Gael', role: 'Baker', gender: 'Male', color: 0xd2b48c, size: [1.1, 1, 1.1], topic: 'Unit #2: Multiple Selection (switch)',
+      dialogue: 'My baking ovens have discrete preset dials. If a dial is selected, the correct heat activates. But some cases are falling through!',
+      question: { text: 'What happens in a C++ `switch` statement if a `case` matches but lacks a trailing `break` statement?', options: ['The compiler raises a fatal syntax error.', 'Execution immediately terminates and exits the switch.', 'Execution falls through to subsequent cases until a break or the end of the switch is met.', 'The default case is automatically executed regardless of match.'], correct: 2, explanation: 'Without a `break`, execution "falls through" to execute the statements of the next case sequentially.' } },
+    { id: 'n8', name: 'Rowena', role: 'Librarian', gender: 'Female', color: 0x228b22, size: [1, 1, 1], topic: 'Unit #2: Conditional Operator (?:)',
+      dialogue: 'Ah, the ternary conditional operator. It is the shortest path to double selection. Concise, yet elegant.',
+      question: { text: 'Which expression is equivalent to: `if (a > b) max = a; else max = b;`?', options: ['max = (a > b) ? a : b;', 'max = (a > b) : a ? b;', '(a > b) ? max = b : max = a;', 'max = if (a > b) a else b;'], correct: 0, explanation: 'The conditional operator `condition ? expr1 : expr2` evaluates `expr1` if true, and `expr2` if false.' } },
+    { id: 'n9', name: 'Kael', role: 'Miner', gender: 'Male', color: 0x708090, size: [1.05, 0.95, 1.05], topic: 'Unit #2: Nested Decisions',
+      dialogue: 'Deep inside the mine, one passageway branches, and within that branch lies another choice. A labyrinth of conditions!',
+      question: { text: 'Under what conditions will this print "Branch B"? `if (x > 10) { if (y < 5) cout << "Branch A"; else cout << "Branch B"; }`', options: ['x <= 10', 'x > 10 and y < 5', 'x > 10 and y >= 5', 'y >= 5 regardless of x'], correct: 2, explanation: 'To reach "Branch B", the outer condition `x > 10` must be true, and the inner condition `y < 5` must be false (i.e., `y >= 5`).' } },
+    { id: 'n10', name: 'Mira', role: 'Mayor', gender: 'Female', color: 0xffd700, size: [1, 1.05, 1], topic: 'Unit #2: Logical Operator Precedence',
+      dialogue: 'In municipal code as in C++, some operations take precedence. We must evaluate logical priority correctly.',
+      question: { text: 'What is the boolean evaluation of the expression `true || false && false` in C++?', options: ['false', 'true', 'Error: ambiguous expression', 'false if evaluated left-to-right'], correct: 1, explanation: 'The logical AND (`&&`) operator has higher precedence than logical OR (`||`). So `false && false` is evaluated first (false), then `true || false` is evaluated (true).' } },
+    { id: 'n11', name: 'Jorik', role: 'Scribe', gender: 'Male', color: 0x8a2be2, size: [0.95, 1, 0.95], topic: 'Unit #3: Counter Loops (for)',
+      dialogue: 'I copy scrolls, index by index. Count-controlled processes require a starting scroll, an ending limit, and a step.',
+      question: { text: 'How many times does this loop print the scribe status: `for (int i = 0; i <= 5; i += 2) cout << "S";`?', options: ['2 times', '3 times', '4 times', '5 times'], correct: 1, explanation: 'The loop variable `i` takes values 0, 2, and 4. When `i` becomes 6, the condition `6 <= 5` is false, running 3 times total.' } },
+    { id: 'n12', name: 'Elys', role: 'Scientist', gender: 'Female', color: 0x00ced1, size: [0.95, 1.05, 0.95], topic: 'Unit #3: Conditional Loops (while)',
+      dialogue: 'My experiments repeat as long as the solution is unstable. Pre-test loops guarantee we don\'t start if it is safe.',
+      question: { text: 'If the condition in a standard `while` loop is false before the first iteration begins, how many times will the loop body execute?', options: ['0 times', '1 time', 'Infinitely', 'It depends on compiler settings'], correct: 0, explanation: 'A `while` loop is a pre-test loop; it checks the condition before executing. If false initially, it executes 0 times.' } },
+    { id: 'n13', name: 'Doran', role: 'Gravedigger', gender: 'Male', color: 0x2f4f4f, size: [1.1, 1.1, 1.1], topic: 'Unit #3: Post-Test Loops (do/while)',
+      dialogue: 'I dig graves. At least one grave must be dug regardless of whether the shift continues. A post-test loop is my style.',
+      question: { text: 'What is the primary characteristic that distinguishes a `do-while` loop from a `while` loop?', options: ['It runs only when conditions are false.', 'It is guaranteed to execute its body at least once because the condition is evaluated at the end.', 'It can only be used with integer counters.', 'It consumes less memory.'], correct: 1, explanation: 'Since `do-while` is a post-test loop, the body of the loop executes once before the exit condition is evaluated.' } },
+    { id: 'n14', name: 'Sybil', role: 'Architect', gender: 'Female', color: 0xda70d6, size: [1, 1.05, 1], topic: 'Unit #3: Loop Nesting',
+      dialogue: 'A city design is a grid of blocks. Inner loops define columns, and outer loops define rows. A nested grid pattern.',
+      question: { text: 'How many asterisks are printed by this nested loop block? `for(int r = 0; r < 3; r++) { for(int c = 0; c < 4; c++) { cout << "*"; } }`', options: ['7', '12', '9', '4'], correct: 1, explanation: 'The outer loop runs 3 times, and for each iteration, the inner loop runs 4 times. 3 * 4 = 12 total print statements.' } },
+    { id: 'n15', name: 'Orin', role: 'Clockmaker', gender: 'Male', color: 0xb8860b, size: [0.95, 0.95, 0.95], topic: 'Unit #3: Loop Control (break & continue)',
+      dialogue: 'Gears mesh and turn. But an emergency break halts everything immediately, while continue skips the current cog\'s teeth.',
+      question: { text: 'Inside a loop, what is the precise difference between the `break` and `continue` statements?', options: ['break skips to the next iteration; continue exits the loop.', 'break terminates compilation; continue restarts the computer.', 'break exits the nearest enclosing loop completely; continue skips the rest of the current iteration and goes to the next check.', 'They are identical in loops but different in switch structures.'], correct: 2, explanation: '`break` interrupts and exits the loop immediately. `continue` skips the remaining statements in the current iteration and goes to the next evaluation/increment.' } }
 ];
 
 let gameState = {
@@ -336,7 +336,7 @@ class AudioManager {
             }
         }, 1500);
     }
-    playFootstep() {
+    playFootstep(isOnPath = false) {
         if (this.muted || !this.settings.sfx || !this.ctx) return;
         const now = this.ctx.currentTime;
         if (now - this.lastFootstepTime < 0.35) return; 
@@ -347,17 +347,24 @@ class AudioManager {
         const filter = this.ctx.createBiquadFilter();
 
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(120, now);
-        osc.frequency.exponentialRampToValueAtTime(30, now + 0.1);
+        if (isOnPath) {
+            osc.frequency.setValueAtTime(150, now);
+            osc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
+            filter.frequency.value = 400;
+            gain.gain.setValueAtTime(0.04, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+        } else {
+            osc.frequency.setValueAtTime(120, now);
+            osc.frequency.exponentialRampToValueAtTime(30, now + 0.1);
+            filter.frequency.value = 250;
+            gain.gain.setValueAtTime(0.08, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        }
 
         filter.type = 'lowpass';
-        filter.frequency.value = 250;
-
-        gain.gain.setValueAtTime(0.08, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
 
         osc.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
-        osc.start(now); osc.stop(now + 0.1);
+        osc.start(now); osc.stop(now + 0.15);
     }
     playInteractionBeep() {
         if (this.muted || !this.settings.sfx || !this.ctx) return;
@@ -461,6 +468,28 @@ class AudioManager {
 
         noiseNode.start(now);
     }
+    playBirdChirp(dist = 10) {
+        if (this.muted || !this.settings.sfx || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(3000, now);
+        osc.frequency.exponentialRampToValueAtTime(4000, now + 0.1);
+        osc.frequency.exponentialRampToValueAtTime(2500, now + 0.2);
+        
+        let targetVolume = 0.05 * (1 - Math.min(dist/40, 1));
+        if (targetVolume < 0.001) targetVolume = 0.001;
+        
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.linearRampToValueAtTime(targetVolume, now + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
+        
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+    }
 }
 const audio = new AudioManager();
 
@@ -468,6 +497,8 @@ const audio = new AudioManager();
 // UI & DOM
 // ==========================================
 const ui = {
+    welcomeScreen: document.getElementById('welcome-screen'),
+    welcomeContinueBtn: document.getElementById('welcome-continue-btn'),
     scaleScreen: document.getElementById('scale-screen'),
     mainMenu: document.getElementById('main-menu'),
     hud: document.getElementById('hud'),
@@ -515,7 +546,15 @@ const ui = {
     closeSettingsBtn: document.getElementById('close-settings-btn'),
     toggleMusic: document.getElementById('toggle-music'),
     toggleAmbience: document.getElementById('toggle-ambience'),
-    toggleSfx: document.getElementById('toggle-sfx')
+    toggleSfx: document.getElementById('toggle-sfx'),
+
+    gameTooltip: document.getElementById('game-tooltip'),
+    tooltipTitle: document.getElementById('tooltip-title'),
+    tooltipText: document.getElementById('tooltip-text'),
+    
+    playerEmote: document.getElementById('player-emote'),
+    emoteIcon: document.getElementById('emote-icon'),
+    emoteText: document.getElementById('emote-text')
 };
 
 function hideAllScreens() {
@@ -567,9 +606,25 @@ ui.toggleMusic.addEventListener('change', () => audio.updateSettings());
 ui.toggleAmbience.addEventListener('change', () => audio.updateSettings());
 ui.toggleSfx.addEventListener('change', () => audio.updateSettings());
 
+// ==========================================
+// INITIAL SETUP logic
+// ==========================================
+ui.welcomeContinueBtn.disabled = true;
+ui.welcomeContinueBtn.textContent = 'Wait...';
+setTimeout(() => {
+    ui.welcomeContinueBtn.disabled = false;
+    ui.welcomeContinueBtn.textContent = 'Continue';
+}, 3000);
+
+ui.welcomeContinueBtn.addEventListener('click', () => {
+    audio.init(); 
+    audio.playInteractionBeep();
+    hideAllScreens();
+    ui.scaleScreen.classList.remove('hidden');
+});
+
 document.querySelectorAll('.scale-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        audio.init();
         audio.playInteractionBeep();
         startGameScale(btn.getAttribute('data-scale'));
     });
@@ -598,26 +653,66 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new PointerLockControls(camera, document.body);
 
+// First Person Arms Setup
+const playerArmGroup = new THREE.Group();
+camera.add(playerArmGroup);
+scene.add(camera); // Camera must be in scene for children to render
+
+const armGeo = new THREE.CylinderGeometry(0.04, 0.03, 0.6);
+const armMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.8 }); // Dark sleeve color
+const handGeo = new THREE.SphereGeometry(0.05);
+const handMat = new THREE.MeshStandardMaterial({ color: 0xfca5a5, roughness: 0.5 }); // Skin tone
+
+// Right Arm
+const rightArmBase = new THREE.Group();
+rightArmBase.position.set(0.25, -0.25, -0.2);
+const rightArmMesh = new THREE.Mesh(armGeo, armMat);
+rightArmMesh.position.set(0, 0, -0.3);
+rightArmMesh.rotation.x = Math.PI / 2;
+const rightHandMesh = new THREE.Mesh(handGeo, handMat);
+rightHandMesh.position.set(0, -0.35, 0);
+rightArmMesh.add(rightHandMesh);
+rightArmBase.add(rightArmMesh);
+playerArmGroup.add(rightArmBase);
+
+// Left Arm
+const leftArmBase = new THREE.Group();
+leftArmBase.position.set(-0.25, -0.25, -0.2);
+const leftArmMesh = new THREE.Mesh(armGeo, armMat);
+leftArmMesh.position.set(0, 0, -0.3);
+leftArmMesh.rotation.x = Math.PI / 2;
+const leftHandMesh = new THREE.Mesh(handGeo, handMat);
+leftHandMesh.position.set(0, -0.35, 0);
+leftArmMesh.add(leftHandMesh);
+leftArmBase.add(leftArmMesh);
+playerArmGroup.add(leftArmBase);
+
+// Hide arms initially by pulling them down
+rightArmBase.position.y = -0.8;
+leftArmBase.position.y = -0.8;
+let currentEmote = null;
+let emoteAnimationTimer = 0;
+
 // Lighting (Time of Day system)
-const colorSkyAfternoon = new THREE.Color(0x64748b);
+const colorSkyAfternoon = new THREE.Color(0x94a3b8);
 const colorSkyDusk = new THREE.Color(0x0f172a);
 
-const colorSunAfternoon = new THREE.Color(0xffe4b5);
-const colorSunDusk = new THREE.Color(0x818cf8);
+const colorSunAfternoon = new THREE.Color(0xfff5e6); // Warmer, more gold sun
+const colorSunDusk = new THREE.Color(0x4f46e5);
 
-const colorAmbAfternoon = new THREE.Color(0x94a3b8);
-const colorAmbDusk = new THREE.Color(0x475569);
+const colorAmbAfternoon = new THREE.Color(0xd1d5db); // Less blue, warmer ambient
+const colorAmbDusk = new THREE.Color(0x334155);
 
-const sunPosAfternoon = new THREE.Vector3(80, 50, 50);
+const sunPosAfternoon = new THREE.Vector3(80, 70, 50); // Higher sun
 const sunPosDusk = new THREE.Vector3(-50, 15, -30);
 
 let environmentProgress = 0;
 
-const ambientLight = new THREE.AmbientLight(colorAmbAfternoon, 0.6);
+const ambientLight = new THREE.AmbientLight(colorAmbAfternoon, 0.8); // Brighter
 scene.add(ambientLight);
 
 let dirLightColor = new THREE.Color().copy(colorSunAfternoon);
-let dirLightIntensity = 1.2;
+let dirLightIntensity = 1.5; // Stronger direction light
 
 const csm = new CSM({
     maxFar: 150,
@@ -637,9 +732,62 @@ scene.add(fillLight);
 
 let collidables = [];
 let npcMeshes = [];
+let clutterMeshes = [];
 let buildMeshes = [];
 let staticMeshes = [];
 let activeParticles = [];
+let activeBirds = [];
+let weatherMesh = null;
+let pathIndicators = [];
+
+function spawnPathIndicators(mapSize) {
+    const geo = new THREE.SphereGeometry(0.15, 8, 8);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x93c5fd, transparent: true, opacity: 0.8 });
+    
+    // We place them along the main paths (axes)
+    const steps = 10;
+    const halfMap = mapSize / 2;
+    const spacing = halfMap / steps;
+    
+    for (let i = 1; i < steps; i++) {
+        // Positive and negative X
+        createIndicator(i * spacing, 0, geo, mat);
+        createIndicator(-i * spacing, 0, geo, mat);
+        // Positive and negative Z
+        createIndicator(0, i * spacing, geo, mat);
+        createIndicator(0, -i * spacing, geo, mat);
+        
+        // Also a few diagonal ones to point to the outskirts randomly
+        createIndicator(i * spacing * 0.7, i * spacing * 0.7, geo, mat);
+        createIndicator(-i * spacing * 0.7, -i * spacing * 0.7, geo, mat);
+        createIndicator(i * spacing * 0.7, -i * spacing * 0.7, geo, mat);
+        createIndicator(-i * spacing * 0.7, i * spacing * 0.7, geo, mat);
+    }
+}
+
+function createIndicator(x, z, geo, mat) {
+    const mesh = new THREE.Mesh(geo, mat);
+    const y = getTerrainHeight(x, z) + 0.5;
+    mesh.position.set(x, y, z);
+    mesh.userData = { baseY: y, animOffset: Math.random() * Math.PI * 2 };
+    
+    // add small point light
+    const light = new THREE.PointLight(0x93c5fd, 0.4, 3);
+    mesh.add(light);
+    
+    scene.add(mesh);
+    pathIndicators.push(mesh);
+}
+
+let weatherVelocities = null;
+
+let screenShakeMagnitude = 0;
+let currentShakeOffset = new THREE.Vector3();
+
+// Trigger a camera shake effect with given magnitude 
+function triggerCameraShake(magnitude = 0.5) {
+    screenShakeMagnitude = magnitude;
+}
 
 function spawnClueParticles(npcId) {
     const mesh = npcMeshes.find(m => m.userData.id === npcId);
@@ -724,12 +872,25 @@ function clearWorld() {
     buildMeshes.forEach(m => scene.remove(m));
     staticMeshes.forEach(m => scene.remove(m));
     npcMeshes.forEach(m => scene.remove(m));
+    clutterMeshes.forEach(m => scene.remove(m));
     activeParticles.forEach(p => scene.remove(p.mesh));
+    activeBirds.forEach(b => scene.remove(b));
+    pathIndicators.forEach(p => scene.remove(p));
+    if (weatherMesh) {
+        scene.remove(weatherMesh);
+        weatherMesh.geometry.dispose();
+        weatherMesh.material.dispose();
+        weatherMesh = null;
+    }
+    
     buildMeshes = [];
     staticMeshes = [];
     npcMeshes = [];
+    clutterMeshes = [];
     collidables = [];
     activeParticles = [];
+    activeBirds = [];
+    pathIndicators = [];
 }
 
 function buildWorld(numHouses, size) {
@@ -757,6 +918,9 @@ function buildWorld(numHouses, size) {
     const p2 = new THREE.Mesh(pathGeo, pathMat); p2.rotation.x = -Math.PI/2; p2.rotation.z = Math.PI/2; p2.position.y=0.01; p2.receiveShadow=true;
     scene.add(p1, p2); staticMeshes.push(p1, p2);
 
+    // Path Indicators
+    spawnPathIndicators(size);
+
     // Generate Houses
     const housePositions = [];
     const spread = size * 0.4;
@@ -767,28 +931,41 @@ function buildWorld(numHouses, size) {
         if(Math.abs(hx) < 8) hx = hx > 0 ? hx + 8 : hx - 8;
         if(Math.abs(hz) < 8) hz = hz > 0 ? hz + 8 : hz - 8;
         
-        buildHouse(hx, hz, 6 + Math.random()*3, 6 + Math.random()*3, 4 + Math.random()*2);
+        buildHouse(hx, hz, 6 + Math.random()*3, 6 + Math.random()*3, 4 + Math.random()*2, i === 0);
         housePositions.push({x: hx, z: hz});
     }
 
-    // Generate Trees & Rocks
-    const treeGeo = new THREE.CylinderGeometry(0.2, 0.5, 3);
-    const leavesGeo = new THREE.ConeGeometry(2.5, 6, 5);
-    const leafMat = new THREE.MeshStandardMaterial({ color: 0x064e3b, flatShading: true });
-    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x451a03 });
+    // Generate Trees, Bushes & Decorations
+    const treeGeo = new THREE.CylinderGeometry(0.25, 0.6, 2.5);
+    const leavesGeo = new THREE.IcosahedronGeometry(2); // More natural shape
+    const leafMat = new THREE.MeshStandardMaterial({ color: 0x166534, flatShading: true });
+    const trunkMat = new THREE.MeshStandardMaterial({ color: 0x57534e });
     
-    for(let i=0; i<numHouses * 3; i++) {
+    // Bush Geometry
+    const bushGeo = new THREE.SphereGeometry(0.8, 8, 8);
+    const bushMat = new THREE.MeshStandardMaterial({ color: 0x15803d, flatShading: true });
+    
+    for(let i=0; i<numHouses * 8; i++) { // More objects
         let x = (Math.random() - 0.5) * size;
         let z = (Math.random() - 0.5) * size;
-        if(Math.abs(x) < 5 && Math.abs(z) < 5) continue;
+        if(Math.abs(x) < 6 || Math.abs(z) < 6) continue;
         
-        const grp = new THREE.Group();
-        const trunk = new THREE.Mesh(treeGeo, trunkMat); trunk.position.y = 1.5; trunk.castShadow=true; trunk.receiveShadow=true;
-        const leaves = new THREE.Mesh(leavesGeo, leafMat); leaves.position.y = 5; leaves.castShadow=true; leaves.receiveShadow=true;
-        grp.add(trunk, leaves);
-        grp.position.set(x, getTerrainHeight(x, z), z);
-        scene.add(grp); staticMeshes.push(grp);
-        collidables.push(new THREE.Box3().setFromObject(grp));
+        const y = getTerrainHeight(x, z);
+
+        if(Math.random() < 0.6) { // Tree
+            const grp = new THREE.Group();
+            const trunk = new THREE.Mesh(treeGeo, trunkMat); trunk.position.y = 1.25; trunk.castShadow=true;
+            const leaves = new THREE.Mesh(leavesGeo, leafMat); leaves.position.y = 3.5; leaves.scale.set(1, 1.2, 1); leaves.castShadow=true;
+            grp.add(trunk, leaves);
+            grp.position.set(x, y, z);
+            scene.add(grp); staticMeshes.push(grp);
+            collidables.push(new THREE.Box3().setFromObject(grp));
+        } else { // Bush
+            const bush = new THREE.Mesh(bushGeo, bushMat);
+            bush.position.set(x, y + 0.4, z);
+            bush.castShadow = true;
+            scene.add(bush); staticMeshes.push(bush);
+        }
     }
 
     createNPCs(housePositions, size);
@@ -801,46 +978,393 @@ function buildWorld(numHouses, size) {
 
     const camStartY = getTerrainHeight(0, 0) + 1.8;
     camera.position.set(0, camStartY, 0);
+    spawnBirds(25);
+    spawnWeather();
 }
 
-function buildHouse(x, z, w, d, h) {
+function spawnBirds(count) {
+    const birdGeo = new THREE.ConeGeometry(0.15, 0.4, 4);
+    birdGeo.rotateX(Math.PI / 2); // Point forward
+    const birdMat = new THREE.MeshBasicMaterial({ color: 0x0f172a }); // dark bird shape
+
+    for(let i=0; i<count; i++) {
+        const mesh = new THREE.Mesh(birdGeo, birdMat);
+        mesh.position.set(
+            (Math.random() - 0.5) * gameState.mapSize * 2,
+            getTerrainHeight(0,0) + 12 + Math.random() * 8, // Fixed height high in air
+            (Math.random() - 0.5) * gameState.mapSize * 2
+        );
+        mesh.userData = {
+            velocity: new THREE.Vector3(
+                (Math.random() - 0.5) * 5,
+                (Math.random() - 0.2) * 1.5,
+                (Math.random() - 0.5) * 5
+            ).normalize().multiplyScalar(5 + Math.random() * 4), 
+            animOffset: Math.random() * Math.PI * 2,
+            chirpTimer: Math.random() * 10
+        };
+        const target = mesh.position.clone().add(mesh.userData.velocity);
+        mesh.lookAt(target);
+        
+        scene.add(mesh);
+        activeBirds.push(mesh);
+    }
+}
+
+function spawnWeather() {
+    const particleCount = 2000;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    weatherVelocities = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * gameState.mapSize * 2.5; 
+        positions[i * 3 + 1] = Math.random() * 40; 
+        positions[i * 3 + 2] = (Math.random() - 0.5) * gameState.mapSize * 2.5; 
+        
+        weatherVelocities[i * 3] = (Math.random() - 0.5) * 2;
+        weatherVelocities[i * 3 + 1] = -(Math.random() * 8 + 8); 
+        weatherVelocities[i * 3 + 2] = (Math.random() - 0.5) * 2;
+    }
+    
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const material = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.1,
+        transparent: true,
+        opacity: 0.4,
+        depthWrite: false
+    });
+    
+    weatherMesh = new THREE.Points(geometry, material);
+    scene.add(weatherMesh);
+}
+
+function updateWeather(delta, envProgress) {
+    if (!weatherMesh) return;
+    
+    let weatherMode = document.getElementById('weather-select').value;
+    
+    if (weatherMode === 'clear') {
+        weatherMesh.visible = false;
+        return;
+    } else {
+        weatherMesh.visible = true;
+    }
+    
+    let effProgress = envProgress;
+    if (weatherMode === 'rainy') effProgress = 0.0;
+    if (weatherMode === 'snowy') effProgress = 1.0;
+    
+    const isSnowing = effProgress > 0.5;
+    const size = THREE.MathUtils.lerp(0.1, 0.4, effProgress);
+    const opacity = THREE.MathUtils.lerp(0.3, 0.6, effProgress);
+    
+    weatherMesh.material.size = size;
+    weatherMesh.material.opacity = opacity;
+    // Tinge rain blueish, snow white
+    weatherMesh.material.color.lerpColors(new THREE.Color(0xbadeff), new THREE.Color(0xffffff), effProgress);
+    
+    const positions = weatherMesh.geometry.attributes.position.array;
+    for (let i = 0; i < positions.length / 3; i++) {
+        const vx = weatherVelocities[i * 3];
+        const vy = weatherVelocities[i * 3 + 1];
+        const vz = weatherVelocities[i * 3 + 2];
+        
+        const speedScale = THREE.MathUtils.lerp(1.0, 0.2, effProgress); 
+        
+        const drift = Math.sin(performance.now() * 0.0005 + positions[i*3+1] * 0.1) * speedScale;
+        
+        positions[i * 3] += (vx + drift) * delta;
+        positions[i * 3 + 1] += vy * speedScale * delta;
+        positions[i * 3 + 2] += vz * delta;
+        
+        if (positions[i * 3 + 1] < 0) {
+            positions[i * 3 + 1] = 40; 
+            positions[i * 3] = camera.position.x + (Math.random() - 0.5) * 60; 
+            positions[i * 3 + 2] = camera.position.z + (Math.random() - 0.5) * 60;
+        }
+    }
+    weatherMesh.geometry.attributes.position.needsUpdate = true;
+}
+
+function updatePathIndicators(time) {
+    pathIndicators.forEach(mesh => {
+        mesh.position.y = mesh.userData.baseY + Math.sin(time * 2 + mesh.userData.animOffset) * 0.15;
+        // pulse light intensity
+        if (mesh.children.length > 0) {
+            mesh.children[0].intensity = 0.3 + Math.sin(time * 3 + mesh.userData.animOffset) * 0.1;
+        }
+    });
+}
+
+function updateClutter(time) {
+    clutterMeshes.forEach(mesh => {
+        if (mesh.userData.isLantern && mesh.children.length > 0) {
+            const light = mesh.children[0];
+            light.intensity = 0.5 + Math.sin(time * 15 + mesh.userData.animOffset) * 0.1 + Math.random() * 0.05;
+        }
+    });
+}
+
+function updatePlayerArms(delta) {
+    if (currentEmote !== null) {
+        emoteAnimationTimer += delta;
+        const t = emoteAnimationTimer;
+        
+        // Bring arms up smoothly
+        const targetY = -0.2;
+        rightArmBase.position.y = THREE.MathUtils.lerp(rightArmBase.position.y, targetY, delta * 10);
+        leftArmBase.position.y = THREE.MathUtils.lerp(leftArmBase.position.y, targetY, delta * 10);
+        
+        // Emote specific animations
+        if (currentEmote === 1) { // Waving
+            rightArmBase.rotation.z = Math.sin(t * 15) * 0.5 + 0.5;
+            rightArmBase.rotation.x = Math.sin(t * 5) * 0.2;
+            leftArmBase.rotation.set(0, 0, 0); // idle
+        } else if (currentEmote === 2) { // Pointing
+            rightArmBase.rotation.x = -Math.PI / 4;
+            rightArmBase.position.y = THREE.MathUtils.lerp(rightArmBase.position.y, -0.1, delta * 10);
+            leftArmBase.rotation.set(0, 0, 0);
+        } else if (currentEmote === 3) { // Thinking
+            rightArmBase.rotation.z = Math.PI / 4;
+            rightArmBase.rotation.x = Math.sin(t * 2) * 0.1;
+            leftArmBase.rotation.set(0, 0, 0);
+        } else if (currentEmote === 4) { // Nodding
+            // Make both arms gesture open slightly
+            rightArmBase.rotation.z = 0.2;
+            leftArmBase.rotation.z = -0.2;
+            rightArmBase.rotation.x = Math.sin(t * 8) * 0.1;
+            leftArmBase.rotation.x = Math.sin(t * 8) * 0.1;
+        }
+    } else {
+        // Bring arms down when no emote is active
+        const targetY = -0.8;
+        rightArmBase.position.y = THREE.MathUtils.lerp(rightArmBase.position.y, targetY, delta * 10);
+        leftArmBase.position.y = THREE.MathUtils.lerp(leftArmBase.position.y, targetY, delta * 10);
+        
+        // Add subtle breathing/bobbing to rotation when moving
+        const speed = velocity.length();
+        let bobbing = 0;
+        if (speed > 0.1 && !controls.isLocked) bobbing = 0; // stop bobbing if unlocked
+        else if (speed > 0.1) bobbing = Math.sin(performance.now() * 0.01) * 0.05;
+        
+        rightArmBase.rotation.set(bobbing, 0, 0);
+        leftArmBase.rotation.set(-bobbing, 0, 0);
+    }
+}
+
+function updateBirds(delta, time) {
+    activeBirds.forEach(bird => {
+        bird.position.addScaledVector(bird.userData.velocity, delta);
+        bird.position.y += Math.sin(time * 8 + bird.userData.animOffset) * 0.05;
+        
+        const mapLimit = gameState.mapSize;
+        if (bird.position.x > mapLimit) bird.position.x = -mapLimit;
+        if (bird.position.x < -mapLimit) bird.position.x = mapLimit;
+        if (bird.position.z > mapLimit) bird.position.z = -mapLimit;
+        if (bird.position.z < -mapLimit) bird.position.z = mapLimit;
+        
+        // Slightly change direction over time
+        bird.userData.velocity.applyAxisAngle(new THREE.Vector3(0, 1, 0), Math.sin(time / 2 + bird.userData.animOffset) * delta * 0.5);
+        const target = bird.position.clone().add(bird.userData.velocity);
+        bird.lookAt(target);
+
+        bird.userData.chirpTimer -= delta;
+        if (bird.userData.chirpTimer <= 0) {
+            const dist = camera.position.distanceTo(bird.position);
+            if (dist < 50) {
+                audio.playBirdChirp(dist);
+            }
+            bird.userData.chirpTimer = 6 + Math.random() * 15;
+        }
+    });
+}
+
+const clutterFlavorTexts = [
+    "An old wooden barrel. Smells like salted fish.",
+    "A sturdy crate marked: 'Do not open - Mayor's Property'.",
+    "Empty sack of grains. Mice have chewed through it.",
+    "A rusted lantern. Someone left in a hurry.",
+    "A pile of chopped wood, dry and ready for winter.",
+    "Some strange discarded tools. You can't decipher their use."
+];
+
+function spawnClutter(x, z, houseW, houseD) {
+    if(Math.random() < 0.4) return; // 60% chance for a house to have clutter
+
+    const isBarrel = Math.random() < 0.5;
+    const isLantern = Math.random() < 0.2; // small chance for a standalone lantern
+    
+    let geo, mat;
+    if (isLantern) {
+        geo = new THREE.CylinderGeometry(0.15, 0.2, 0.6, 6);
+        mat = new THREE.MeshStandardMaterial({ color: 0xca8a04, emissive: 0xb45309, emissiveIntensity: 0.5 });
+    } else if(isBarrel) {
+        geo = new THREE.CylinderGeometry(0.4, 0.4, 1.2, 8);
+        mat = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 1.0 });
+    } else {
+        geo = new THREE.BoxGeometry(1, 1, 1);
+        mat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.9, map: new THREE.CanvasTexture(createCrateTexture()) });
+    }
+    
+    // We add multiple pieces sometimes
+    const numClutter = 1 + Math.floor(Math.random() * 3);
+    for(let i=0; i<numClutter; i++) {
+        const mesh = new THREE.Mesh(geo, mat);
+        
+        // Find a spot near the house (adjusting for rotation)
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.max(houseW, houseD) / 2 + 1.0 + Math.random() * 2.0;
+        
+        const cx = x + Math.cos(angle) * dist;
+        const cz = z + Math.sin(angle) * dist;
+        const cy = getTerrainHeight(cx, cz) + (isLantern ? 0.3 : (isBarrel ? 0.6 : 0.5));
+        
+        mesh.position.set(cx, cy, cz);
+        
+        if (!isBarrel && !isLantern) {
+            mesh.rotation.y = Math.random() * Math.PI;
+        }
+
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        mesh.userData = {
+            isClutter: true,
+            isHeavy: !isLantern,
+            flavorText: clutterFlavorTexts[Math.floor(Math.random() * clutterFlavorTexts.length)]
+        };
+
+        if (isLantern) {
+            mesh.userData.flavorText = "A flickering lantern... It brings a tiny sliver of hope.";
+            const light = new THREE.PointLight(0xfef08a, 0.5, 4);
+            light.position.y = 0.4;
+            mesh.add(light);
+            // We use animation for flickering
+            mesh.userData.isLantern = true;
+            mesh.userData.animOffset = Math.random() * 100;
+        }
+
+        scene.add(mesh);
+        clutterMeshes.push(mesh);
+        collidables.push(new THREE.Box3().setFromObject(mesh));
+    }
+}
+
+function createCrateTexture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#78350f';
+    ctx.fillRect(0,0,64,64);
+    ctx.strokeStyle = '#451a03';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(4,4,56,56);
+    ctx.beginPath();
+    ctx.moveTo(4,4); ctx.lineTo(60,60);
+    ctx.moveTo(60,4); ctx.lineTo(4,60);
+    ctx.stroke();
+    return canvas;
+}
+
+function buildHouse(x, z, w, d, h, hasSignboard = false) {
     const group = new THREE.Group();
     
+    // Vary colors
+    const colors = [0x78350f, 0x4f46e5, 0x991b1b, 0x166534, 0x1e293b];
+    const baseColor = colors[Math.floor(Math.random() * colors.length)];
+    
     // Base
-    const baseMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
+    const baseMat = new THREE.MeshStandardMaterial({ color: baseColor, roughness: 0.8 });
     const base = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), baseMat);
     base.position.y = h/2;
     base.castShadow = true; base.receiveShadow = true;
     group.add(base);
 
-    // Roof
-    const roofH = h * 0.6;
+    // Roof - varied heights
+    const roofH = h * (0.5 + Math.random() * 0.3);
     const roofMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b });
-    const roof = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w,d)*0.7, roofH, 4), roofMat);
+    const roof = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w,d)*0.75, roofH, 4), roofMat);
     roof.position.y = h + roofH/2;
     roof.rotation.y = Math.PI/4;
     roof.castShadow = true; roof.receiveShadow = true;
     group.add(roof);
 
+    // Chimney (randomly)
+    if(Math.random() < 0.5) {
+        const chimneyMat = new THREE.MeshStandardMaterial({ color: 0x334155 });
+        const chimney = new THREE.Mesh(new THREE.BoxGeometry(w*0.2, h*0.4, d*0.2), chimneyMat);
+        chimney.position.set(w*0.3, h + roofH*0.5, 0);
+        chimney.castShadow = true;
+        group.add(chimney);
+    }
+
     // Door
     const doorMat = new THREE.MeshStandardMaterial({ color: 0x171717 });
-    const door = new THREE.Mesh(new THREE.BoxGeometry(w*0.25, h*0.6, d+0.1), doorMat);
-    door.position.y = (h*0.6)/2;
+    const door = new THREE.Mesh(new THREE.BoxGeometry(w*0.25, h*0.5, d+0.1), doorMat);
+    door.position.set(0, (h*0.5)/2, d/2);
     group.add(door);
 
     // Windows (Glowing)
-    const winMat = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xb45309, emissiveIntensity: 0.5 });
-    const windowMesh = new THREE.Mesh(new THREE.BoxGeometry(w+0.1, h*0.3, d*0.3), winMat);
-    windowMesh.position.y = h*0.6;
+    const winMat = new THREE.MeshStandardMaterial({ color: 0xfef08a, emissive: 0xb45309, emissiveIntensity: 0.8 });
+    const windowMesh = new THREE.Mesh(new THREE.BoxGeometry(w*0.2, h*0.2, d+0.2), winMat);
+    windowMesh.position.set(-w*0.2, h*0.6, d/2);
     group.add(windowMesh);
+    const windowMesh2 = new THREE.Mesh(new THREE.BoxGeometry(w*0.2, h*0.2, d+0.2), winMat);
+    windowMesh2.position.set(w*0.2, h*0.6, d/2);
+    group.add(windowMesh2);
+
+    if (hasSignboard) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1024;
+        canvas.height = 1024;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.fillStyle = '#1e293b'; 
+        ctx.fillRect(0, 0, 1024, 1024);
+        
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 20;
+        ctx.strokeRect(20, 20, 984, 984);
+        
+        ctx.fillStyle = '#facc15';
+        ctx.font = 'bold 85px Cinzel';
+        ctx.textAlign = 'center';
+        ctx.fillText('CREATED BY', 512, 180);
+        ctx.fillText('ZEESHAN KHAN', 512, 280);
+        
+        ctx.fillStyle = '#818cf8';
+        ctx.font = 'bold 65px Inter';
+        ctx.letterSpacing = '10px';
+        ctx.fillText('HIS FIRST GAME', 512, 450);
+        
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '45px Inter';
+        ctx.letterSpacing = '0px';
+        ctx.fillText('He loves discovering new things', 512, 600);
+        ctx.fillText('and building tools, websites,', 512, 670);
+        ctx.fillText('and creative projects.', 512, 740);
+        
+        const signTexture = new THREE.CanvasTexture(canvas);
+        signTexture.anisotropy = 16;
+        const signMat = new THREE.MeshStandardMaterial({ map: signTexture, roughness: 0.6 });
+        const signMesh = new THREE.Mesh(new THREE.PlaneGeometry(w*0.8, w*0.8), signMat);
+        // Place on the back wall of the house to be seen
+        signMesh.position.set(0, h*0.45, -d/2 - 0.05);
+        signMesh.rotation.y = Math.PI;
+        group.add(signMesh);
+    }
 
     group.position.set(x, getTerrainHeight(x, z), z);
-    // rotate randomly
     group.rotation.y = (Math.floor(Math.random()*4)) * (Math.PI/2);
     
     scene.add(group);
     buildMeshes.push(group);
     collidables.push(new THREE.Box3().setFromObject(group));
+
+    spawnClutter(x, z, w, d);
 }
 
 function createNPCs(housePosList, mapSize) {
@@ -848,30 +1372,420 @@ function createNPCs(housePosList, mapSize) {
         const group = new THREE.Group();
         const sw = n.size[0], sh = n.size[1], sd = n.size[2];
 
-        const bodyMat = new THREE.MeshStandardMaterial({ color: n.color });
-        const skinMat = new THREE.MeshStandardMaterial({ color: 0xffedd5 });
-        const darkMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+        // Core dimensions
+        const tw = 0.8 * sw, th = 1.2 * sh, td = 0.4 * sd;
+        const hw = 0.5 * sw, hh = 0.5 * sh, hd = 0.5 * sd;
 
-        // Torso
-        const torso = new THREE.Mesh(new THREE.BoxGeometry(0.8*sw, 1.2*sh, 0.4*sd), bodyMat);
-        torso.position.y = 1.6*sh; torso.castShadow = true; group.add(torso);
+        // Custom skins & hair palettes based on role to create visual depth
+        let skinHex = 0xffedd5; // default fair
+        let hairHex = 0x221c17; // default dark
+        let outfitHex = n.color;
 
-        // Head
-        const head = new THREE.Mesh(new THREE.BoxGeometry(0.5*sw, 0.5*sh, 0.5*sd), skinMat);
-        head.position.y = 2.45*sh; head.castShadow = true; group.add(head);
+        if (n.role === 'Farmer' || n.role === 'Miner' || n.role === 'Gravedigger' || n.role === 'Baker') {
+            skinHex = 0xe0a96d; // warm tanned/sun-kissed skin
+        } else if (n.role === 'Mayor' || n.role === 'Teacher' || n.role === 'Librarian') {
+            skinHex = 0xffe4e6; // rose-ivory
+        }
 
-        // Legs
-        const legL = new THREE.Mesh(new THREE.BoxGeometry(0.3*sw, 1.0*sh, 0.3*sd), darkMat);
-        legL.position.set(-0.2*sw, 0.5*sh, 0); legL.castShadow = true; group.add(legL);
-        const legR = new THREE.Mesh(new THREE.BoxGeometry(0.3*sw, 1.0*sh, 0.3*sd), darkMat);
-        legR.position.set(0.2*sw, 0.5*sh, 0); legR.castShadow = true; group.add(legR);
+        if (n.role === 'Blacksmith') {
+            hairHex = 0x7c2d12; // reddish brown
+        } else if (n.role === 'Doctor' || n.role === 'Clockmaker') {
+            hairHex = 0x78716c; // grey/silver hair
+        } else if (n.role === 'Mayor') {
+            hairHex = 0x1d4ed8; // rich dynamic blue hair for high contrast
+        }
 
-        // Arms
-        const armL = new THREE.Mesh(new THREE.BoxGeometry(0.2*sw, 1.0*sh, 0.2*sd), bodyMat);
-        armL.position.set(-0.5*sw, 1.6*sh, 0); armL.castShadow = true; group.add(armL);
-        const armR = new THREE.Mesh(new THREE.BoxGeometry(0.2*sw, 1.0*sh, 0.2*sd), bodyMat);
-        armR.position.set(0.5*sw, 1.6*sh, 0); armR.castShadow = true; group.add(armR);
+        const bodyMat = new THREE.MeshStandardMaterial({ color: outfitHex, roughness: 0.8 });
+        const skinMat = new THREE.MeshStandardMaterial({ color: skinHex, roughness: 0.9 });
+        const darkMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9 });
+        const hairMat = new THREE.MeshStandardMaterial({ color: hairHex, roughness: 0.9 });
 
+        // Accessory materials
+        const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+        const pupilMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.2 });
+        const goldMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.3, metalness: 0.5 });
+        const glassMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.4, roughness: 0.2 });
+        const leatherMat = new THREE.MeshStandardMaterial({ color: 0x7c2d12, roughness: 0.9 });
+        const steelMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.4, metalness: 0.7 });
+        const plumeMat = new THREE.MeshStandardMaterial({ color: 0xe11d48, roughness: 0.8 });
+
+        // ==========================================
+        // 1. TORSO (Body structure)
+        // ==========================================
+        const torso = new THREE.Mesh(new THREE.BoxGeometry(tw, th, td), bodyMat);
+        torso.position.y = 1.6 * sh;
+        torso.castShadow = true;
+        torso.receiveShadow = true;
+        group.add(torso);
+
+        // Torso Details (Buttons, suspenders, aprons)
+        if (n.role === 'Blacksmith') {
+            // Leather blacksmith apron (Matches woodcutter/blacksmith brown leather chest shield)
+            const apron = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.85, th * 0.9, 0.05 * sd), leatherMat);
+            apron.position.set(0, -0.05 * th, td / 2 + 0.01 * sd);
+            apron.castShadow = true;
+            torso.add(apron);
+
+            // Straps
+            const strapL = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.12, th * 0.4, 0.06 * sd), darkMat);
+            strapL.position.set(-tw * 0.3, th * 0.35, td / 2 + 0.01 * sd);
+            const strapR = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.12, th * 0.4, 0.06 * sd), darkMat);
+            strapR.position.set(tw * 0.3, th * 0.35, td / 2 + 0.01 * sd);
+            torso.add(strapL, strapR);
+        } else if (n.role === 'Baker') {
+            // Baker/Chef apron (clean white)
+            const apron = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.85, th * 0.82, 0.04 * sd), whiteMat);
+            apron.position.set(0, -0.08 * th, td / 2 + 0.01 * sd);
+            apron.castShadow = true;
+            torso.add(apron);
+        } else if (n.role === 'Guard') {
+            // Heavy steel chest armor chestplate
+            const chestPlate = new THREE.Mesh(new THREE.BoxGeometry(tw * 1.05, th * 0.95, td * 1.15), steelMat);
+            chestPlate.position.set(0, 0, 0);
+            chestPlate.castShadow = true;
+            torso.add(chestPlate);
+
+            // Gold/Bronze Shoulder Guards/Pauldrons
+            const pauldronL = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.25, th * 0.25, td * 1.25), goldMat);
+            pauldronL.position.set(-tw * 0.58, th * 0.4, 0);
+            const pauldronR = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.25, th * 0.25, td * 1.25), goldMat);
+            pauldronR.position.set(tw * 0.58, th * 0.4, 0);
+            torso.add(pauldronL, pauldronR);
+        } else if (n.role === 'Mayor') {
+            // Elegant gold sash / collar band
+            const sash = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.25, th * 1.05, td * 1.1), goldMat);
+            sash.position.set(0, 0, 0);
+            sash.rotation.z = Math.PI / 6;
+            torso.add(sash);
+        } else {
+            // Standard suspenders or buttons
+            const button1 = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.1, tw * 0.1, 0.03 * sd), whiteMat);
+            button1.position.set(0, th * 0.2, td / 2 + 0.01 * sd);
+            const button2 = new THREE.Mesh(new THREE.BoxGeometry(tw * 0.1, tw * 0.1, 0.03 * sd), whiteMat);
+            button2.position.set(0, -th * 0.1, td / 2 + 0.01 * sd);
+            torso.add(button1, button2);
+        }
+
+        // ==========================================
+        // 2. HEAD (Modular features built as children)
+        // ==========================================
+        const head = new THREE.Mesh(new THREE.BoxGeometry(hw, hh, hd), skinMat);
+        head.position.y = 2.45 * sh;
+        head.castShadow = true;
+        head.receiveShadow = true;
+        group.add(head);
+
+        // Core facial layout (Eyes, Pupils, Eyebrows, Nose)
+        const eyeW = 0.15 * hw, eyeH = 0.15 * hh, eyeD = 0.02 * hd;
+        const pupilW = 0.07 * hw, pupilH = 0.07 * hh, pupilD = 0.01 * hd;
+
+        // Left Eye (White & Pupil)
+        const eyeL = new THREE.Mesh(new THREE.BoxGeometry(eyeW, eyeH, eyeD), whiteMat);
+        eyeL.position.set(-0.2 * hw, 0.05 * hh, hd / 2 + 0.005);
+        const pupL = new THREE.Mesh(new THREE.BoxGeometry(pupilW, pupilH, pupilD), pupilMat);
+        pupL.position.set(-0.2 * hw, 0.05 * hh, hd / 2 + 0.009);
+        head.add(eyeL, pupL);
+
+        // Right Eye (White & Pupil)
+        const eyeR = new THREE.Mesh(new THREE.BoxGeometry(eyeW, eyeH, eyeD), whiteMat);
+        eyeR.position.set(0.2 * hw, 0.05 * hh, hd / 2 + 0.005);
+        const pupR = new THREE.Mesh(new THREE.BoxGeometry(pupilW, pupilH, pupilD), pupilMat);
+        pupR.position.set(0.2 * hw, 0.05 * hh, hd / 2 + 0.009);
+        head.add(eyeR, pupR);
+
+        // Eyebrows
+        const browL = new THREE.Mesh(new THREE.BoxGeometry(0.22 * hw, 0.05 * hh, 0.03 * hd), hairMat);
+        browL.position.set(-0.21 * hw, 0.18 * hh, hd / 2 + 0.01);
+        const browR = new THREE.Mesh(new THREE.BoxGeometry(0.22 * hw, 0.05 * hh, 0.03 * hd), hairMat);
+        browR.position.set(0.21 * hw, 0.18 * hh, hd / 2 + 0.01);
+        head.add(browL, browR);
+
+        // Cute low-poly nose block (slightly darker/contrast skin color)
+        const noseMat = new THREE.MeshStandardMaterial({ color: THREE.MathUtils.lerp(skinHex, 0x000000, 0.1), roughness: 0.9 });
+        const nose = new THREE.Mesh(new THREE.BoxGeometry(0.12 * hw, 0.22 * hh, 0.1 * hd), noseMat);
+        nose.position.set(0, -0.05 * hh, hd / 2 + 0.04 * hd);
+        head.add(nose);
+
+        // ==========================================
+        // 3. HAIR & EXPRESSIVE LOW-POLY ACCENTS
+        // ==========================================
+        const hasBaldTop = (n.role === 'Merchant' || n.role === 'Doctor');
+
+        // Hair Cap
+        if (!hasBaldTop) {
+            // General hair crown covering top
+            const hairCap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.06, hh * 0.18, hd * 1.06), hairMat);
+            hairCap.position.set(0, hh / 2 + 0.06 * hh, -0.04 * hd);
+            hairCap.castShadow = true;
+            head.add(hairCap);
+        }
+
+        // Side/Back Hair (present for most, including receding hairstyles)
+        const hairBack = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.06, hh * 0.85, hd * 0.15), hairMat);
+        hairBack.position.set(0, -0.1 * hh, -hd / 2 - 0.04 * hd);
+        head.add(hairBack);
+
+        const hairSideL = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.1, hh * 0.8, hd * 1.02), hairMat);
+        hairSideL.position.set(-hw / 2 - 0.03 * hw, -0.1 * hh, -0.02 * hd);
+        const hairSideR = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.1, hh * 0.8, hd * 1.02), hairMat);
+        hairSideR.position.set(hw / 2 + 0.03 * hw, -0.1 * hh, -0.02 * hd);
+        head.add(hairSideL, hairSideR);
+
+        // Role-Specific Hair Additions
+        if (n.role === 'Blacksmith') {
+            // Sturdy tied-back ponytail/bun (Representing Elara)
+            const ponytail = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.25, hh * 0.4, hd * 0.25), hairMat);
+            ponytail.position.set(0, -0.15 * hh, -hd / 2 - 0.15 * hd);
+            ponytail.castShadow = true;
+            head.add(ponytail);
+        } else if (n.role === 'Teacher') {
+            // Teacher hair bun (Lyra) with pink/magenta tie
+            const hairTie = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.24, hh * 0.08, hd * 0.24), plumeMat);
+            hairTie.position.set(0, hh / 2 + 0.15 * hh, -0.1 * hd);
+            const bun = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.32, hh * 0.32, hd * 0.32), hairMat);
+            bun.position.set(0, hh / 2 + 0.26 * hh, -0.1 * hd);
+            bun.castShadow = true;
+            head.add(hairTie, bun);
+        } else if (n.role === 'Scientist') {
+            // Spiky vertical hair for eccentric scholar (Elys)
+            for (let j = -1; j <= 1; j++) {
+                const spike = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.18, hh * 0.32, hd * 0.18), hairMat);
+                spike.position.set(j * 0.35 * hw, hh / 2 + 0.18 * hh, (Math.random() - 0.5) * 0.2 * hd);
+                spike.rotation.z = -j * 0.4;
+                spike.rotation.y = (Math.random() - 0.5) * 0.4;
+                head.add(spike);
+            }
+        }
+
+        // ==========================================
+        // 4. BEARDS & MOUSTACHES (Epic Handlebars & Cascading Goatees)
+        // ==========================================
+        if (n.role === 'Merchant') {
+            // Epic curved Handlebar Moustache (Silas, exactly like the reference Merchant!)
+            const brandMustacheCenter = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.35, hh * 0.12, hd * 0.1), darkMat);
+            brandMustacheCenter.position.set(0, -0.28 * hh, hd / 2 + 0.02 * hd);
+            
+            const handleL = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.14, hh * 0.16, hd * 0.1), darkMat);
+            handleL.position.set(-0.2 * hw, -0.22 * hh, hd / 2 + 0.03 * hd);
+            handleL.rotation.z = Math.PI / 6;
+
+            const handleR = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.14, hh * 0.16, hd * 0.1), darkMat);
+            handleR.position.set(0.2 * hw, -0.22 * hh, hd / 2 + 0.03 * hd);
+            handleR.rotation.z = -Math.PI / 6;
+
+            head.add(brandMustacheCenter, handleL, handleR);
+        } else if (n.role === 'Farmer' || n.role === 'Gravedigger' || n.role === 'Miner') {
+            // Robust square low-poly work beard (Alaric/Kael/Doran)
+            const workBeard = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.04, hh * 0.35, hd * 0.45), hairMat);
+            workBeard.position.set(0, -hh / 2, hd * 0.1);
+            workBeard.castShadow = true;
+            head.add(workBeard);
+
+            // Mouth gap indicator above it
+            const faceCover = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.35, hh * 0.04, 0.01), darkMat);
+            faceCover.position.set(0, -0.18 * hh, hd / 2 + 0.005);
+            head.add(faceCover);
+        } else if (n.role === 'Librarian' || n.role === 'Doctor' || n.role === 'Scribe' || n.role === 'Clockmaker') {
+            // Wise cascading Elder Beard extending down towards chest
+            const whiteBeardColor = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.9 });
+            const wiseBeard = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.85, hh * 0.65, hd * 0.38), whiteBeardColor);
+            wiseBeard.position.set(0, -hh / 2 - 0.15 * hh, hd * 0.12);
+            wiseBeard.castShadow = true;
+            head.add(wiseBeard);
+
+            // Moustache
+            const wiseMustache = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.5, hh * 0.12, hd * 0.1), whiteBeardColor);
+            wiseMustache.position.set(0, -0.25 * hh, hd / 2 + 0.02 * hd);
+            head.add(wiseMustache);
+        }
+
+        // ==========================================
+        // 5. HELMETS, HATS, SPECTACLES, MONOCLES
+        // ==========================================
+        if (n.role === 'Farmer') {
+            // Conical Straw Hat! (Yellowish gold straw)
+            const strawHatGroup = new THREE.Group();
+            strawHatGroup.position.set(0, hh / 2 + 0.01, 0);
+
+            const rim = new THREE.Mesh(new THREE.BoxGeometry(hw * 2.1, hh * 0.08, hd * 2.1), goldMat);
+            rim.castShadow = true;
+
+            const crown = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.05, hh * 0.24, hd * 1.05), goldMat);
+            crown.position.y = 0.12 * hh;
+            crown.castShadow = true;
+
+            const tip = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.5, hh * 0.18, hd * 0.5), goldMat);
+            tip.position.y = 0.3 * hh;
+
+            strawHatGroup.add(rim, crown, tip);
+            strawHatGroup.rotation.x = 0.05; // stylish tilt
+            head.add(strawHatGroup);
+        } else if (n.role === 'Baker') {
+            // High Puffy white Master Chef/Baker Hat!
+            const bakerHatGroup = new THREE.Group();
+            bakerHatGroup.position.set(0, hh / 2 + 0.02, 0);
+
+            const hatBase = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.95, hh * 0.28, hd * 0.95), whiteMat);
+            hatBase.castShadow = true;
+            const hatPlump = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.25, hh * 0.45, hd * 1.25), whiteMat);
+            hatPlump.position.y = 0.3 * hh;
+            hatPlump.castShadow = true;
+
+            bakerHatGroup.add(hatBase, hatPlump);
+            head.add(bakerHatGroup);
+        } else if (n.role === 'Gravedigger') {
+            // Cemetery Inspector flat hat (rugged brim)
+            const hatRim = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.8, hh * 0.06, hd * 1.8), darkMat);
+            hatRim.position.set(0, hh / 2 + 0.03 * hh, 0);
+            hatRim.castShadow = true;
+            const hatCrown = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.02, hh * 0.22, hd * 1.02), darkMat);
+            hatCrown.position.set(0, hh / 2 + 0.12 * hh, 0);
+            hatCrown.castShadow = true;
+            head.add(hatRim, hatCrown);
+        } else if (n.role === 'Miner') {
+            // Rugged hardhat with an orange glowing beacon/crystal light source box
+            const minerCap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.1, hh * 0.32, hd * 1.1), leatherMat);
+            minerCap.position.set(0, hh / 2 + 0.1 * hh, 0);
+            minerCap.castShadow = true;
+            
+            const lampMount = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.18, hh * 0.18, hd * 0.12), steelMat);
+            lampMount.position.set(0, hh / 2 + 0.1 * hh, hd / 2 + 0.04 * hd);
+            
+            // Glowing mineral lamp crystal
+            const goldGlowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, emissive: 0xf59e0b, emissiveIntensity: 2.0 });
+            const lampCrystal = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.12, hh * 0.12, hd * 0.06), goldGlowMat);
+            lampCrystal.position.set(0, hh / 2 + 0.1 * hh, hd / 2 + 0.09 * hd);
+
+            head.add(minerCap, lampMount, lampCrystal);
+        } else if (n.role === 'Guard') {
+            // Vanguard Iron Helmet with a Crimson Plume!
+            const helmetGroup = new THREE.Group();
+            helmetGroup.position.set(0, 0, 0);
+
+            // Metal skull armor
+            const cap = new THREE.Mesh(new THREE.BoxGeometry(hw * 1.12, hh * 1.05, hd * 1.12), steelMat);
+            cap.position.y = 0.1 * hh;
+            cap.castShadow = true;
+
+            const noseGuard = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.1, hh * 0.45, hd * 0.05), steelMat);
+            noseGuard.position.set(0, -0.15 * hh, hd / 2 + 0.06 * hd);
+
+            // Majestic Red Crest/Plume
+            const plume = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.14, hh * 0.35, hd * 1.2), plumeMat);
+            plume.position.set(0, hh / 2 + 0.24 * hh, -0.05 * hd);
+            plume.castShadow = true;
+
+            helmetGroup.add(cap, noseGuard, plume);
+            head.add(helmetGroup);
+        } else if (n.role === 'Mayor') {
+            // Golden high crown
+            const crownGroup = new THREE.Group();
+            crownGroup.position.set(0, hh / 2 + 0.1 * hh, 0);
+
+            const crownRing = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.85, hh * 0.12, hd * 0.85), goldMat);
+            crownGroup.add(crownRing);
+
+            for (let c = 0; c < 4; c++) {
+                const spike = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.12, hh * 0.22, hd * 0.12), goldMat);
+                spike.position.set(
+                    ((c === 0 || c === 1) ? 0.35 : -0.35) * hw,
+                    0.1 * hh,
+                    ((c === 0 || c === 2) ? 0.35 : -0.35) * hd
+                );
+                spike.rotation.y = Math.PI / 4;
+                crownGroup.add(spike);
+            }
+            head.add(crownGroup);
+        }
+
+        // Eyeglasses (Specials for intellectuals)
+        if (n.role === 'Teacher' || n.role === 'Librarian' || n.role === 'Doctor') {
+            // Fine specs frame (built of simple low poly flat layers)
+            const specsGroup = new THREE.Group();
+            specsGroup.position.set(0, 0.05 * hh, hd / 2 + 0.012 * hd);
+
+            const frameL = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.25, hh * 0.22, 0.02 * hd), goldMat);
+            frameL.position.set(-0.2 * hw, 0, 0);
+            const glassL = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.21, hh * 0.18, 0.01 * hd), glassMat);
+            glassL.position.set(-0.2 * hw, 0, 0.005);
+
+            const frameR = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.25, hh * 0.22, 0.02 * hd), goldMat);
+            frameR.position.set(0.2 * hw, 0, 0);
+            const glassR = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.21, hh * 0.18, 0.01 * hd), glassMat);
+            glassR.position.set(0.2 * hw, 0, 0.005);
+
+            const bridge = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.18, hh * 0.04, 0.01 * hd), goldMat);
+            bridge.position.set(0, 0, 0);
+
+            specsGroup.add(frameL, glassL, frameR, glassR, bridge);
+            head.add(specsGroup);
+        } else if (n.role === 'Clockmaker') {
+            // Brass magnifying clockwork Monocle on Right Eye!
+            const monocle = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.24, hh * 0.24, 0.06 * hd), goldMat);
+            monocle.position.set(0.2 * hw, 0.05 * hh, hd / 2 + 0.015 * hd);
+            const monocleGlass = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.18, hh * 0.18, 0.01 * hd), glassMat);
+            monocleGlass.position.set(0.2 * hw, 0.05 * hh, hd / 2 + 0.042 * hd);
+
+            const goldStrap = new THREE.Mesh(new THREE.BoxGeometry(hw * 0.55, hh * 0.03, hd * 1.05), goldMat);
+            goldStrap.position.set(0.12 * hw, 0.05 * hh, 0);
+
+            head.add(monocle, monocleGlass, goldStrap);
+        }
+
+        // ==========================================
+        // 6. LOWER EXTREMITIES & ARMS
+        // ==========================================
+        // Legs (Pants/boots combo)
+        const legL = new THREE.Mesh(new THREE.BoxGeometry(0.3 * sw, 1.0 * sh, 0.3 * sd), darkMat);
+        legL.position.set(-0.2 * sw, 0.5 * sh, 0);
+        legL.castShadow = true;
+        legL.receiveShadow = true;
+        group.add(legL);
+
+        const legR = new THREE.Mesh(new THREE.BoxGeometry(0.3 * sw, 1.0 * sh, 0.3 * sd), darkMat);
+        legR.position.set(0.2 * sw, 0.5 * sh, 0);
+        legR.castShadow = true;
+        legR.receiveShadow = true;
+        group.add(legR);
+
+        // Brown boots/shoes overlay
+        const bootL = new THREE.Mesh(new THREE.BoxGeometry(0.33 * sw, 0.18 * sh, 0.42 * sd), leatherMat);
+        bootL.position.set(-0.2 * sw, 0.09 * sh, 0.05 * sd);
+        bootL.castShadow = true;
+        group.add(bootL);
+
+        const bootR = new THREE.Mesh(new THREE.BoxGeometry(0.33 * sw, 0.18 * sh, 0.42 * sd), leatherMat);
+        bootR.position.set(0.2 * sw, 0.09 * sh, 0.05 * sd);
+        bootR.castShadow = true;
+        group.add(bootR);
+
+        // Arms (With hand cuffs!)
+        const armL = new THREE.Mesh(new THREE.BoxGeometry(0.2 * sw, 1.0 * sh, 0.2 * sd), bodyMat);
+        armL.position.set(-0.5 * sw, 1.6 * sh, 0);
+        armL.castShadow = true;
+        armL.receiveShadow = true;
+        group.add(armL);
+
+        const armR = new THREE.Mesh(new THREE.BoxGeometry(0.2 * sw, 1.0 * sh, 0.2 * sd), bodyMat);
+        armR.position.set(0.5 * sw, 1.6 * sh, 0);
+        armR.castShadow = true;
+        armR.receiveShadow = true;
+        group.add(armR);
+
+        // Flesh/Skin hands
+        const handL = new THREE.Mesh(new THREE.BoxGeometry(0.24 * sw, 0.24 * sh, 0.24 * sd), skinMat);
+        handL.position.set(-0.5 * sw, 1.0 * sh, 0);
+        handL.castShadow = true;
+        group.add(handL);
+
+        const handR = new THREE.Mesh(new THREE.BoxGeometry(0.24 * sw, 0.24 * sh, 0.24 * sd), skinMat);
+        handR.position.set(0.5 * sw, 1.0 * sh, 0);
+        handR.castShadow = true;
+        group.add(handR);
+
+        // ==========================================
+        // 7. WAYPOINT INITIALIZATION
+        // ==========================================
         let posX = 0, posZ = 0;
         let waypoints = [];
         if(i < housePosList.length) {
@@ -924,34 +1838,54 @@ function createNPCs(housePosList, mapSize) {
 // INTERACTION & UI FLOW
 // ==========================================
 let selectedNPCId = null;
+let selectedClutter = null;
 const raycaster = new THREE.Raycaster();
 const center = new THREE.Vector2(0, 0);
 
 function checkInteractions() {
     if (!controls.isLocked) return;
     raycaster.setFromCamera(center, camera);
-    const intersects = raycaster.intersectObjects(npcMeshes, true);
+    const intersects = raycaster.intersectObjects([...npcMeshes, ...clutterMeshes], true);
     selectedNPCId = null;
+    selectedClutter = null;
     ui.interactPrompt.classList.add('hidden');
 
     if (intersects.length > 0) {
         const hit = intersects[0];
         if (hit.distance < 4.5) {
             let obj = hit.object;
-            while(obj.parent && !obj.userData.isNPC) obj = obj.parent;
+            while(obj.parent && !obj.userData.isNPC && !obj.userData.isClutter) obj = obj.parent;
             if (obj.userData && obj.userData.isNPC) {
                 selectedNPCId = obj.userData.id;
                 ui.interactPrompt.classList.remove('hidden');
+                ui.interactPrompt.textContent = 'PRESS [E] TO INTERROGATE';
                 ui.npcName.textContent = getNPCContext(selectedNPCId).name; // preload
+
+                if (!tooltipState.interactHint) {
+                    tooltipState.interactHint = true;
+                    showTooltip("Interrogation", "Press [E] to interrogate suspects. Find lies and expose the criminal.", 6000);
+                }
+            } else if (obj.userData && obj.userData.isClutter) {
+                selectedClutter = obj.userData;
+                ui.interactPrompt.classList.remove('hidden');
+                ui.interactPrompt.textContent = 'PRESS [E] TO INSPECT';
             }
         }
     }
 }
 
 document.addEventListener('keydown', (e) => {
-    if (e.code === 'KeyE' && controls.isLocked && selectedNPCId) {
-        audio.playInteractionBeep();
-        openDialogue(selectedNPCId);
+    if (e.code === 'KeyE' && controls.isLocked) {
+        if (selectedNPCId) {
+            audio.playInteractionBeep();
+            openDialogue(selectedNPCId);
+        } else if (selectedClutter) {
+            audio.playInteractionBeep();
+            showTooltip("Inspection", selectedClutter.flavorText, 6000);
+            if (selectedClutter.isHeavy) {
+                triggerCameraShake(0.3);
+            }
+        }
     }
     if ((e.code === 'Escape' || e.code === 'Tab') && gameState.gameActive && controls.isLocked) {
         // controls.unlock() will trigger the general openNotebook due to our event listener
@@ -1024,6 +1958,22 @@ function closeScreensAndResume() {
     }
 }
 
+function updatePortrait(expression, color) {
+    const bg = document.getElementById('npc-portrait-bg');
+    if (bg && color !== undefined) bg.setAttribute('fill', '#' + color.toString(16).padStart(6, '0'));
+
+    const exprs = ['expr-neutral', 'expr-suspicious', 'expr-surprised', 'expr-happy'];
+    exprs.forEach(expr => {
+        const el = document.getElementById(expr);
+        // We use SVG, so we might need block display or just toggle a class 'hidden'
+        // let's ensure the class is set
+        if (el) el.classList.add('hidden');
+    });
+
+    const targetEl = document.getElementById('expr-' + expression);
+    if (targetEl) targetEl.classList.remove('hidden');
+}
+
 function openDialogue(npcId) {
     controls.unlock(); 
     gameState.currentNpcId = npcId;
@@ -1043,6 +1993,13 @@ function openDialogue(npcId) {
     ui.npcName.style.color = '#' + npc.color.toString(16).padStart(6, '0');
     ui.npcRole.textContent = npc.role;
     typeWriterEffect(ui.npcDialogue, `"${npc.dialogue}"`);
+
+    // default expression based on state
+    if (p.questionPassed) {
+        updatePortrait('happy', npc.color);
+    } else {
+        updatePortrait('neutral', npc.color);
+    }
 
     ui.qContainer.classList.add('hidden');
     ui.fContainer.classList.add('hidden');
@@ -1103,6 +2060,7 @@ function submitAnswer(idx, btnElement) {
 
     if (idx === npc.question.correct) {
         audio.playSuccessBeep();
+        updatePortrait('surprised');
         spawnClueParticles(gameState.currentNpcId);
         btnElement.classList.add('correct');
         const basePts = Math.max(0, 10 - p.failedAttempts * 5);
@@ -1121,6 +2079,7 @@ function submitAnswer(idx, btnElement) {
         ui.nextBtn.onclick = () => { ui.nextBtn.classList.add('hidden'); openDialogue(gameState.currentNpcId); };
     } else {
         audio.playErrorBeep();
+        updatePortrait('suspicious');
         btnElement.classList.add('wrong');
         p.failedAttempts++;
         ui.fText.textContent = `INCORRECT DEDUCTION. Penalized.`;
@@ -1146,6 +2105,13 @@ function openNotebook() {
     hideAllScreens();
     ui.hud.classList.remove('hidden'); 
     ui.notebookScreen.classList.remove('hidden');
+    ui.notebookPts.textContent = gameState.score;
+    
+    if(!tooltipState.notebookHint) {
+        tooltipState.notebookHint = true;
+        showTooltip("Investigation Ledger", "Review suspect testimonies and use your knowledge points to scan for lies.");
+    }
+    
     ui.notebookGrid.innerHTML = '';
 
     gameState.activeNPCs.forEach(npc => {
@@ -1235,6 +2201,9 @@ function finishGame(accusedId) {
     ui.endScreen.classList.remove('hidden');
     const actualCrim = getNPCContext(gameState.criminalId);
     
+    // Add strong camera shake for impactful accusation
+    triggerCameraShake(1.2);
+    
     if (accusedId === gameState.criminalId) {
         ui.endTitle.textContent = "CASE RESOLVED";
         ui.endTitle.style.color = '#4ade80';
@@ -1306,9 +2275,78 @@ let prevTime = performance.now();
 let lastPlayerFootprintPos = new THREE.Vector3();
 let playerFootprintLeft = false;
 
+// ==========================================
+// TOOLTIPS & EMOTES STATE
+// ==========================================
+let tooltipState = {
+    outskirts: false,
+    villageSquare: false,
+    interactHint: false,
+    notebookHint: false
+};
+let emoteTimer = null;
+let tooltipTimer = null;
+
+function showTooltip(title, text, duration = 4000) {
+    ui.tooltipTitle.textContent = title;
+    ui.tooltipText.textContent = text;
+    ui.gameTooltip.classList.remove('hidden');
+    requestAnimationFrame(() => ui.gameTooltip.classList.add('show'));
+    
+    if(tooltipTimer) clearTimeout(tooltipTimer);
+    tooltipTimer = setTimeout(() => {
+        ui.gameTooltip.classList.remove('show');
+        setTimeout(() => ui.gameTooltip.classList.add('hidden'), 400);
+    }, duration);
+}
+
+function showEmote(icon, text, emoteId = 1) {
+    if(!gameState.gameActive) return;
+    ui.emoteIcon.textContent = icon;
+    ui.emoteText.textContent = text;
+    ui.playerEmote.classList.remove('hidden');
+    requestAnimationFrame(() => ui.playerEmote.classList.add('show'));
+    
+    currentEmote = emoteId;
+    emoteAnimationTimer = 0;
+    
+    if(emoteTimer) clearTimeout(emoteTimer);
+    emoteTimer = setTimeout(() => {
+        ui.playerEmote.classList.remove('show');
+        setTimeout(() => ui.playerEmote.classList.add('hidden'), 300);
+        currentEmote = null;
+    }, 2500);
+}
+
+function checkContextTooltips() {
+    if (!gameState.gameActive) return;
+    const px = camera.position.x;
+    const pz = camera.position.z;
+    const distFromCenter = Math.sqrt(px*px + pz*pz);
+
+    if (distFromCenter < 12 && !tooltipState.villageSquare) {
+        tooltipState.villageSquare = true;
+        showTooltip("Village Center", "The heart of Shadow Village. Suspects frequently gather here.");
+    }
+
+    if (distFromCenter > (gameState.mapSize * 0.8) && !tooltipState.outskirts) {
+        tooltipState.outskirts = true;
+        showTooltip("The Outskirts", "Beyond this point lies uncertainty. Returning to the village is advised.");
+    }
+}
+
 document.addEventListener('keydown', (e) => {
     if (!gameState.gameActive) return;
-    switch(e.code) { case 'KeyW': moveState.forward=true; break; case 'KeyA': moveState.left=true; break; case 'KeyS': moveState.backward=true; break; case 'KeyD': moveState.right=true; break; }
+    switch(e.code) { 
+        case 'KeyW': moveState.forward=true; break; 
+        case 'KeyA': moveState.left=true; break; 
+        case 'KeyS': moveState.backward=true; break; 
+        case 'KeyD': moveState.right=true; break; 
+        case 'Digit1': showEmote('👋', '* Waving *', 1); break;
+        case 'Digit2': showEmote('👉', '* Pointing *', 2); break;
+        case 'Digit3': showEmote('🤔', '* Thinking *', 3); break;
+        case 'Digit4': showEmote('✅', '* Nodding *', 4); break;
+    }
 });
 document.addEventListener('keyup', (e) => {
     if (!gameState.gameActive) return;
@@ -1316,8 +2354,12 @@ document.addEventListener('keyup', (e) => {
 });
 
 function checkWallCollisions(newPosition) {
-    const r = 1;
-    const playerBox = new THREE.Box3(new THREE.Vector3(newPosition.x-r, 0, newPosition.z-r), new THREE.Vector3(newPosition.x+r, 3, newPosition.z+r));
+    const r = 0.4;
+    const feetY = getTerrainHeight(newPosition.x, newPosition.z);
+    const playerBox = new THREE.Box3(
+        new THREE.Vector3(newPosition.x - r, feetY, newPosition.z - r), 
+        new THREE.Vector3(newPosition.x + r, feetY + 2.5, newPosition.z + r)
+    );
     for (let box of collidables) if (playerBox.intersectsBox(box)) return true;
     const limit = gameState.mapSize;
     if (newPosition.x > limit || newPosition.x < -limit || newPosition.z > limit || newPosition.z < -limit) return true;
@@ -1372,7 +2414,12 @@ function animate() {
     const time = performance.now();
     const delta = (time - prevTime) / 1000;
 
+    // Discard previous frame's synthetic shake offset
+    camera.position.sub(currentShakeOffset);
+
     if (gameState.gameActive) {
+        checkContextTooltips();
+        
         gameState.timePassed = (gameState.timePassed || 0) + delta;
         // 300 second day-to-dusk-to-day cycle
         const cycleProgress = 0.5 - 0.5 * Math.cos((gameState.timePassed / 300) * 2 * Math.PI);
@@ -1509,14 +2556,41 @@ function animate() {
         if (moveState.forward || moveState.backward) { velocity.z -= direction.z * speed * delta; isMoving = true; }
         if (moveState.left || moveState.right) { velocity.x -= direction.x * speed * delta; isMoving = true; }
 
-        if (isMoving) audio.playFootstep();
+        if (isMoving) {
+            const px = camera.position.x;
+            const pz = camera.position.z;
+            // The path has width 8, so abs(axis) < 4 is strictly inside. Let's use 4.
+            const isOnPath = Math.abs(px) <= 4 || Math.abs(pz) <= 4;
+            audio.playFootstep(isOnPath);
+        }
 
         const currentPos = camera.position.clone();
         
         controls.moveRight(-velocity.x * delta);
         controls.moveForward(-velocity.z * delta);
 
-        if (checkWallCollisions(camera.position)) camera.position.copy(currentPos);
+        if (checkWallCollisions(camera.position)) {
+            const tempPos = camera.position.clone();
+            
+            // Try sliding on Z only
+            camera.position.set(currentPos.x, tempPos.y, tempPos.z);
+            if (checkWallCollisions(camera.position)) {
+                // Try sliding on X only
+                camera.position.set(tempPos.x, tempPos.y, currentPos.z);
+                if (checkWallCollisions(camera.position)) {
+                    // Full revert if both directions blocked
+                    camera.position.copy(currentPos);
+                }
+            }
+        }
+        
+        // Prevent getting completely stuck inside geometry due to spawning or terrain anomalies.
+        // If we are still stuck at currentPos, attempt to push them slightly towards the center.
+        if (checkWallCollisions(camera.position)) {
+            const dir = new THREE.Vector3().subVectors(new THREE.Vector3(0,0,0), camera.position).normalize();
+            camera.position.addScaledVector(dir, 0.5);
+        }
+
         camera.position.y = getTerrainHeight(camera.position.x, camera.position.z) + 1.8; // Camera height
 
         checkInteractions();
@@ -1524,6 +2598,11 @@ function animate() {
     }
     
     updateFootprints(delta);
+    updateBirds(delta, time / 1000);
+    updateClutter(time / 1000);
+    updatePathIndicators(time / 1000);
+    updateWeather(delta, environmentProgress);
+    updatePlayerArms(delta);
 
     for (let i = activeParticles.length - 1; i >= 0; i--) {
         const p = activeParticles[i];
@@ -1545,6 +2624,19 @@ function animate() {
         p.mesh.geometry.attributes.position.needsUpdate = true;
         p.mesh.material.opacity = p.life;
     }
+
+    // Apply new synthetic shake offset
+    if (screenShakeMagnitude > 0) {
+        screenShakeMagnitude = Math.max(0, screenShakeMagnitude - delta * 2.0);
+        currentShakeOffset.set(
+            (Math.random() - 0.5) * screenShakeMagnitude,
+            (Math.random() - 0.5) * screenShakeMagnitude,
+            (Math.random() - 0.5) * screenShakeMagnitude
+        );
+    } else {
+        currentShakeOffset.set(0, 0, 0);
+    }
+    camera.position.add(currentShakeOffset);
 
     prevTime = time;
     csm.update();
